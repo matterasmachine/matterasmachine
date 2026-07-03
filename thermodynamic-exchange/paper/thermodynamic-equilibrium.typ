@@ -545,13 +545,14 @@ Only the first two are evidence for the closed equilibrium claims of this note.
 The latter two are listed to make the separation from the open formation model
 explicit.
 
-The development repository is
-#link("https://github.com/dmytrogladush/allgic-world")[github.com/dmytrogladush/allgic-world].
-The local source tree used for the reported runs was based on Git commit
-`87a6f3f38163e31ba65fcfb3bb37fa35fc02192c`; the manuscript and simulation
-files listed above are accompanying working-tree additions. Before publication,
-they must be archived in a new content-bearing commit or a versioned release;
-the resulting identifier should replace the base-commit qualification here.
+The reproducibility archive is the public repository
+#link("https://github.com/matterasmachine/matterasmachine")[github.com/matterasmachine/matterasmachine].
+The simulation code used for the reported runs is fixed at commit
+#link("https://github.com/matterasmachine/matterasmachine/commit/6cf453728bbf76d8ad3ef2f1c5755c42be30528b")[`6cf453728bbf76d8ad3ef2f1c5755c42be30528b`].
+The corresponding project folder can be viewed directly
+#link("https://github.com/matterasmachine/matterasmachine/tree/6cf453728bbf76d8ad3ef2f1c5755c42be30528b/thermodynamic-exchange")[at this permanent revision].
+Later manuscript edits may continue to cite this commit as long as the simulation
+code and reported numerical results remain unchanged.
 
 For each reported equilibrium run, one should retain the complete time series,
 repeat several independent seeds, and report confidence intervals rather than a
