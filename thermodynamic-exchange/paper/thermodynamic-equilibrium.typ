@@ -49,11 +49,12 @@
 #v(2mm)
 
 This note studies a minimal model of thermodynamic exchange among discrete
-particles. A particle is represented only by a nonempty finite list of quanta.
-Each particle has one nonexchangeable baseline quantum and a nonnegative number
-of exchangeable quanta, each carrying energy $epsilon$. An elementary event
-transfers exactly one exchangeable quantum from one particle to another, so the
-total exchangeable energy is conserved. For $M$ particles and $Q$ exchangeable
+particles. A particle is represented only by a nonempty finite list of quanta
+and is constrained to remain at size $n>=1$. Relative to that minimum size, it
+has excess occupancy $m=n-1$. No particular list entry is a persistent baseline:
+an elementary event may transfer any selected quantum provided that the donor
+remains nonempty. Each transferred quantum carries energy $epsilon$, and total
+exchange energy is conserved. For $M$ particles and $Q$ excess
 quanta, the number of occupancy configurations is
 $binom(Q+M-1,Q)$. The uniform microcanonical measure therefore has an exact
 finite-system marginal distribution and, in the thermodynamic limit at fixed
@@ -112,9 +113,11 @@ Consider $M>=2$ distinguishable particles. Particle $i$ has total list length
 
 $ n_i=1+m_i, quad m_i in {0,1,2,dots}. $
 
-The baseline instruction ensures that a particle always exists: $n_i>=1$.
-Only the $m_i$ excess instructions participate in the present energy accounting.
-Each excess instruction carries the same energy $epsilon>0$. Hence
+The constraint $n_i>=1$ ensures that a particle always exists. The variable
+$m_i=n_i-1$ is a count relative to this minimum, not a label attached to a
+protected instruction. Whenever $n_i>1$, any selected instruction may be
+transferred while leaving at least one instruction behind. Each transferred
+instruction carries the same energy $epsilon>0$. Hence
 
 $ E_i=epsilon m_i, quad
   E=sum_(i=1)^M E_i=epsilon Q, quad
@@ -127,11 +130,11 @@ $ (m_i,m_j) arrow.r (m_i-1,m_j+1), quad m_i>=1. $
 The reverse event is also allowed. Every event conserves $Q$ and therefore $E$.
 No instruction is created or destroyed in this closed model.
 
-The baseline is a convention that keeps the particle ontology stable. If one
-wishes to assign energy $epsilon$ to it as well, every particle receives the
-same additive energy offset. Such an offset changes the total energy by
-$M epsilon$ but does not affect exchange probabilities, entropy differences,
-temperature, or the distribution of $m_i$.
+The minimum-size subtraction is an energy convention, not a persistent physical
+quantum. If the total list energy is instead defined as $epsilon n_i$, every
+particle receives the same additive offset $epsilon$. The total energy then
+changes by $M epsilon$, but exchange probabilities, entropy differences,
+temperature, and the distribution of $m_i$ are unchanged.
 
 = Exact finite-system state counting
 
@@ -243,7 +246,7 @@ $ P(m)=
 #note[
 The exponential factor has not been postulated. It follows from the logarithmic
 growth of the number of configurations and the thermodynamic definition
-$1/T=partial S/partial E$.
+$ 1/T=frac(partial S, partial E). $
 ]
 
 This is the mathematical single-energy Bose-Einstein occupancy form. It is not
