@@ -1,11 +1,11 @@
 #set page(
   paper: "a4",
-  margin: (top: 21mm, bottom: 22mm, left: 24mm, right: 24mm),
+  margin: (top: 19mm, bottom: 19mm, left: 24mm, right: 24mm),
   numbering: "1",
   number-align: center + bottom,
 )
-#set text(font: "New Computer Modern", size: 9.7pt, lang: "en")
-#set par(justify: true, leading: 0.56em)
+#set text(font: "New Computer Modern", size: 9.4pt, lang: "en")
+#set par(justify: true, leading: 0.52em)
 #set heading(numbering: "1.")
 #show heading.where(level: 1): it => block(above: 1.25em, below: 0.6em)[
   #set text(size: 13.2pt, weight: "semibold", fill: rgb("173f68"))
@@ -49,13 +49,14 @@
 #v(2mm)
 
 This note studies a minimal model of thermodynamic exchange among discrete
-particles. A particle is represented only by a nonempty finite list of quanta
+particles. A particle is postulated to be a nonempty finite list of quanta
 and is constrained to remain at size $n>=1$. Relative to that minimum size, it
 has excess occupancy $m=n-1$. No particular list entry is a persistent baseline:
 an elementary event may transfer any selected quantum provided that the donor
 remains nonempty. Each transferred quantum carries energy $epsilon$, and total
 exchange energy is conserved. For $M$ particles and $Q$ excess
-quanta, the number of occupancy configurations is
+quanta, and under an explicit occupancy-level coarse-graining, the number of
+configurations is
 $binom(Q+M-1,Q)$. The uniform microcanonical measure therefore has an exact
 finite-system marginal distribution and, in the thermodynamic limit at fixed
 $nu=Q/M$, a geometric marginal
@@ -64,15 +65,12 @@ $S=k log Omega$ and temperature by $1/T=(partial S)/(partial E)$ gives
 $r=exp[-epsilon/(k T)]$ and
 $⟨m⟩=1/[exp(epsilon/(k T))-1]$. Thus the exponential thermal
 parameter is obtained from state counting rather than inserted as a change of
-variables. A reversible one-quantum Markov process is shown to have the uniform
-microcanonical measure as its unique stationary distribution. Simulations of
-two initially unequal reservoirs show energy equalization, vanishing late-time
-net flux, and approximately geometric particle-size statistics. In one reported
-simulation, a directional extension with six taxicab instructions and
-perpendicular-only exchange shows approximate agreement with the same
-equilibrium statistics while relaxing more slowly; no stationary-law theorem is
-claimed for that asymmetric process. The result is a minimal
-thermodynamics of a fixed-energy exchange ensemble, not a derivation of quantum
+variables. For a specified size-independent per-particle transfer kernel, a
+reversible one-quantum Markov process is shown to have the uniform
+microcanonical measure as its unique stationary distribution. Time-averaged,
+multiple-seed simulations of two initially unequal reservoirs agree with the
+exact finite marginal. The result is a
+minimal thermodynamics of a fixed-energy exchange ensemble, not a derivation of quantum
 mechanics, a full Bose gas, or the Planck spectrum.
 
 = Purpose and scope
@@ -93,6 +91,13 @@ parts:
 - a stochastic dynamics that actually approaches that equilibrium by reversible
   one-quantum transfers.
 
+The contribution is a deliberately simpler route to familiar equilibrium
+relations: standard thermodynamic quantities and a Bose-Einstein-shaped
+single-energy occupancy arise from discrete reversible matter exchange, without
+assuming an exponential thermal factor or the machinery of quantum mechanics.
+The coarse-graining and kinetic kernel required for that result are stated
+explicitly below.
+
 #note[
 *Ontological postulate.* Matter is discrete. A particle is identified with a
 finite nonempty list of elementary instructions, not merely represented by such
@@ -101,6 +106,18 @@ particle. Consequently, an existing particle has total length $n>=1$. Writing
 $n=1+m$, the exchangeable occupancy satisfies $m>=0$. The condition $n>=1$ is
 a boundary on total list length; it does not label any particular instruction
 as a protected baseline.
+]
+
+#note[
+*Thermodynamic coarse-graining postulate.* Instruction identity, direction, and
+position in a list may matter to other dynamics, but they are not resolved by
+the present equilibrium model. Its energy and thermodynamic state depend only
+on the occupancies $(m_1,dots,m_M)$. Occupancy configurations are assigned equal
+weight. Equivalently, any unresolved list-level degeneracy is assumed to give
+the same multiplicative factor to every fixed-$Q$ occupancy configuration. This
+postulate is essential: if list order or instruction identity gives
+occupancy-dependent multiplicities, the stars-and-bars measure and the results
+below need not follow.
 ]
 
 This paper establishes consequences of that postulate only within the stated
@@ -120,9 +137,8 @@ established equilibrium statistics.
 
 Several topics are intentionally excluded. There is no spatial escape in the
 equilibrium derivation, no cosmological loss or "tired light," no creation of
-matter, no pressure-volume law, and no claim that the six-direction extension
-removes all taxicab anisotropy. These belong to separate models and should not
-be used to justify the equilibrium result proved here.
+matter, and no pressure-volume law. These belong to separate models and should
+not be used to justify the equilibrium result proved here.
 
 = Discrete particles and conserved exchange energy
 
@@ -165,10 +181,11 @@ The number of such weak compositions is the stars-and-bars count
 
 $ Omega(Q,M)=binom(Q+M-1,Q)=binom(Q+M-1,M-1). $
 
-The microcanonical assumption is that all these occupancy configurations have
-equal stationary probability. Section 6 supplies an explicit Markov process for
-which this is not merely assumed but follows from detailed balance and
-ergodicity.
+The coarse-graining postulate assigns all these occupancy configurations equal
+weight. Section 6 supplies an explicit occupancy-level Markov process for which
+the corresponding uniform stationary probability follows from detailed balance
+and ergodicity. It does not derive that coarse-graining from finer list-level
+dynamics.
 
 == Exact marginal of one particle
 
@@ -222,8 +239,20 @@ Define microcanonical entropy by
 
 $ S(E,M)=k log Omega(Q,M), quad Q=E/epsilon, $
 
-where $k$ fixes the temperature unit. Using Stirling's approximation at large
-$Q$ and $M$ gives
+where $k$ fixes the temperature unit. Because energy is discrete, define the
+finite-system inverse temperature by the entropy gained when one quantum is
+added:
+
+$ 1/T_(Q,M):=(S(Q+1,M)-S(Q,M))/epsilon
+  =(k/epsilon)log((Q+M)/(Q+1)). $
+
+This is exact. In the thermodynamic limit it approaches
+
+$ 1/T=(k/epsilon)log((Q+M)/Q)
+  =(k/epsilon)log(1+1/nu). $
+
+The same limiting expression follows from the usual derivative. Using
+Stirling's approximation at large $Q$ and $M$ gives
 
 $ S/k approx
   (Q+M)log(Q+M)-Q log Q-M log M. $
@@ -232,12 +261,11 @@ In terms of $nu=Q/M$,
 
 $ S approx k M [(1+nu)log(1+nu)-nu log nu]. $
 
-Temperature is defined thermodynamically by
+For the smooth limiting entropy, temperature is equivalently
 
 $ 1/T=(partial S)/(partial E)_M. $
 
-Applying this definition to the Stirling-limit entropy, and using
-$E=epsilon Q$, gives in the thermodynamic limit
+Applying this derivative and using $E=epsilon Q$ reproduces
 
 $ 1/T approx (k/epsilon) log((Q+M)/Q)
      =(k/epsilon) log(1+1/nu). $
@@ -321,8 +349,11 @@ so
 
 $ 1/T_A=1/T_B. $
 
-Operationally, two bodies have the same temperature when their late-time mean
-energy flux vanishes. This is stronger than identifying temperature with an
+Within the stated symmetric, connected exchange model, two bodies have the same
+temperature when their late-time mean energy flux vanishes. Outside this model,
+vanishing flux alone is not sufficient: kinetic blocking or disconnected exchange
+channels can also prevent a flux between unequal states. This criterion is stronger
+than identifying temperature with an
 interaction frequency: changing the event rate changes how quickly equilibrium
 is reached, whereas changing $Q/M$ changes which equilibrium is reached.
 
@@ -336,14 +367,16 @@ $ Delta E_A+Delta E_B=0. $
 There is heat exchange but no work term in the present model. Its first-law
 content is simply conservation of exchange energy.
 
-== Second law as a typicality statement
+== Equilibrium concentration and typicality
 
 Starting far from equilibrium, overwhelmingly more configurations correspond to
-energy divisions near the maximum of $S_A+S_B$ than to extreme divisions. A
-reversible stochastic process therefore moves toward the high-multiplicity
-region with high probability. Microscopic trajectories can fluctuate away from
+energy divisions near the maximum of $S_A+S_B$ than to extreme divisions. The
+irreducible exchange process of Section 6, whose stationary measure is
+uniform, therefore approaches the high-multiplicity region with high
+probability. Microscopic trajectories can fluctuate away from
 it; the statistical claim is that the equilibrium macrostate dominates for
-large systems.
+large systems. This is an equilibrium concentration statement, not a proof that
+entropy increases monotonically along every stochastic trajectory.
 
 The model also has a simple low-temperature limit. As $T arrow.r 0$,
 $nu arrow.r 0$, all excess occupancies vanish, and the unique occupancy
@@ -358,6 +391,14 @@ At each discrete update:
 + Choose an ordered pair of distinct particles $(i,j)$ uniformly.
 + If $m_i>0$, transfer one quantum from $i$ to $j$.
 + If $m_i=0$, perform no transfer.
+
+Uniform selection of the donor *particle*, rather than uniform selection among
+all transferable instructions, is an independent kinetic postulate of this
+model. It makes the attempted transfer rate size-independent. Discreteness and
+reversibility alone do not select this kernel: choosing instructions uniformly
+would make donor rates occupancy-dependent and can produce a different
+stationary measure. A physical application must therefore justify or test the
+size-independent per-particle interaction rate.
 
 For any two neighboring configurations $a$ and $b$ connected by moving one
 quantum from $i$ to $j$,
@@ -386,30 +427,36 @@ This argument identifies the essential assumptions:
 - reversibility with equal forward and reverse edge weights; and
 - sufficient connectivity to explore the full fixed-$Q$ state space.
 
+The first item alone is not sufficient; the equal edge weights generated by
+uniform particle-pair selection are what make the stationary measure uniform.
+
 If physical exchange rules violate these conditions, a different stationary
 law may result.
 
 = Two-reservoir numerical experiment
 
-== Nondirectional control model
+== Reversible exchange model
 
-The implementation `two_bath_reversible_exchange.cpp` used two reservoirs with
-$1000$ particles each. Reservoir $A$ began with mean excess occupancy $8$ and
-reservoir $B$ with mean excess occupancy $1$. Thus the conserved global mean was
+The implementation `two_bath_reversible_exchange.cpp` uses two reservoirs with
+$1000$ particles each. Reservoir $A$ begins with mean excess occupancy $8$ and
+reservoir $B$ with mean excess occupancy $1$. Thus the conserved global mean is
 
 $ nu_"global"=(8+1)/2=4.5. $
 
-After $50$ million attempted transfers, representative late-time values were
+Eight runs use consecutive fixed seeds. Each run has $5$ million burn-in updates
+followed by $20$ million measured updates; the full $2000$-particle histogram is
+sampled every $100,000$ measured updates. The resulting time-averaged values,
+reported as mean $plus.minus$ sample standard deviation across runs, are
 
 #block(breakable: false)[
 #align(center)[
 #table(
-  columns: (1.6fr, 1fr, 1fr, 1.2fr),
+  columns: (1.55fr, 1fr, 1fr, 1.2fr),
   align: (left, right, right, right),
-  [stage], [$nu_A$], [$nu_B$], [net cross-flux],
-  [initial], [8.000], [1.000], [positive],
-  [late representative state], [4.477], [4.523], [$-2.0 times 10^(-5)$],
-  [equilibrium target], [4.500], [4.500], [0],
+  [quantity], [mean], [run SD], [target],
+  [$nu_A$], [4.50719], [0.00926], [4.50000],
+  [$nu_B$], [4.49282], [0.00926], [4.50000],
+  [net cross-flux], [$-4 times 10^(-6)$], [$1.7 times 10^(-5)$], [0],
 )
 ]
 ]
@@ -419,72 +466,34 @@ The equilibrium parameters predicted from the conserved global mean are
 $ r=4.5/5.5=0.818182, quad
   beta epsilon=log(1+1/4.5)=0.200671. $
 
-The reservoir means fluctuate around $4.5$ rather than remaining exactly equal
-at every snapshot, as expected for finite systems.
+The reservoir means fluctuate around $4.5$ rather than remaining exactly equal,
+as expected for finite systems.
 
-== Directional particles and perpendicular exchange
+== Exact finite-law test
 
-For a directional extension, every list entry belongs to
+The code constructs the exact finite marginal $P_(9000,2000)(m)$ from its
+adjacent ratio, without fitting a parameter to either reservoir. It then compares
+that prediction with the pooled post-burn-in histogram. Across the eight runs,
 
-$ cal(D)={R,L,U,D,F,B}. $
+$ "TV(exact)"=0.002702 plus.minus 0.000186. $
 
-Each particle selects an active instruction uniformly from its list. Two active
-instructions are compatible only when their coordinate axes are perpendicular.
-For an isotropic six-direction mixture, the compatible fraction is
+For reference, comparison with the thermodynamic-limit geometric law fixed by
+the conserved global mean $nu=4.5$ gives
 
-$ P_"perp"=4/6=2/3. $
+$ "TV(geometric)"=0.002715 plus.minus 0.000162. $
 
-When a pair is compatible, either particle is chosen as donor with probability
-$1/2$; if the selected donor has excess occupancy, its active instruction is
-transferred to the receiver. The total number of instructions is conserved.
+To quantify temporal dependence, the code estimates the integrated
+autocorrelation time of the $nu_A$ snapshot series by summing positive empirical
+autocorrelations. Across runs,
 
-The implementation `two_bath_perpendicular_exchange.cpp` used $2000$ particles
-per reservoir, the same initial means $8$ and $1$, a $20%$ probability of a
-cross-reservoir encounter, and $200$ million attempted interactions. It measured
+$ tau_"int"=1.108 plus.minus 0.235 " snapshots", quad
+  "ESS"=92.98 plus.minus 14.75 $
 
-#block(breakable: false)[
-#align(center)[
-#table(
-  columns: (2fr, 1fr, 1fr),
-  align: (left, right, right),
-  [quantity], [perpendicular only], [all directions],
-  [late $nu_A$], [4.465], [4.693],
-  [late $nu_B$], [4.535], [4.308],
-  [successful transfers per cross attempt], [0.546], [0.818],
-  [late net flux per cross attempt], [$4.1 times 10^(-5)$], [$-1.26 times 10^(-4)$],
-  [geometric TV distance, $A$], [0.039], [0.049],
-  [geometric TV distance, $B$], [0.035], [0.033],
-)
-]
-]
-
-The unequal late values in a single snapshot are finite-size fluctuations. The
-time series oscillates around the common target $4.5$, and the late net flux
-oscillates around zero.
-
-The ratio of transfer frequencies is
-
-$ 0.546/0.818 approx 0.667, $
-
-matching the expected perpendicular compatibility fraction $2/3$. The
-perpendicular rule therefore changes the relaxation rate but does not appear to
-create the thermal equilibrium law. This control is important: the geometric
-equilibrium is attributable to reversible conserved exchange, while
-perpendicularity remains a separate kinematic restriction.
-
-== Why the simulated TV distance is not zero
-
-There are three sources of visible discrepancy from a perfect geometric curve:
-
-- the exact finite-system marginal is not exactly geometric;
-- a histogram from a finite snapshot has sampling noise; and
-- selecting active instructions proportionally to their multiplicities changes
-  microscopic transition weights in the directional implementation, so its
-  occupancy projection is not identical to the ideal symmetric-edge chain.
-
-The numerical result should therefore be described as approximate agreement in
-the reported simulation, not as an exact computational proof or evidence of a
-proved directional stationary law.
+out of 200 stored snapshots per run. These spreads are sample standard
+deviations across eight runs, not confidence intervals. Particle values within
+a snapshot are also constrained by fixed $Q$, so these diagnostics do not prove
+that the TV discrepancy is mostly sampling noise. They show close finite-run
+agreement with the exact law at the tested scale.
 
 = Relation to Bose-Einstein statistics
 
@@ -501,23 +510,11 @@ potential. Bose's original radiation counting and Einstein's extension to an
 ideal gas established the historical quantum-statistical setting for these
 expressions [1, 2].
 
-The present construction differs in interpretation. The distinguishable
-containers are taken to be discrete particles represented by lists, and the
-quanta are transferable list entries. This interpretation is an additional
-physical hypothesis; the combinatorics alone does not establish that actual
-particles have this structure.
-
-Three distinctions prevent overstatement:
-
-+ *Single energy versus a spectrum.* This note assumes one quantum energy
-  $epsilon$. A Planck spectrum requires a family of energies and a density of
-  states.
-+ *Occupancy mathematics versus quantum mechanics.* The geometric law does not
-  derive wave functions, commutation relations, indistinguishability from first
-  principles, or bosonic exchange symmetry.
-+ *Equilibrium versus formation and escape.* The closed microcanonical model
-  does not describe photons leaving a source region. Open-system escape is a
-  different stochastic problem.
+The present construction differs in interpretation: the containers are
+identified with finite nonempty discrete particles and the quanta with
+transferable list entries. The boundary of the result—single energy rather than
+a spectrum, occupancy mathematics rather than quantum mechanics, and closed
+equilibrium rather than formation or escape—is collected in Section 9.
 
 = What has and has not been derived
 
@@ -539,7 +536,6 @@ The following are not derived:
 
 - the microscopic origin or numerical value of $epsilon$;
 - the physical identity of the transferable quanta;
-- the final directional exchange law of a matter-as-machine theory;
 - the Planck spectral factor or density of states;
 - pressure, volume, mechanical work, or an equation of state;
 - chemical potential when particle number changes;
@@ -554,35 +550,28 @@ from hypotheses that require additional dynamics and empirical tests.
 The simulations are deterministic given their pseudorandom seeds and are
 implemented in the accompanying source files:
 
-- `two_bath_reversible_exchange.cpp`: symmetric nondirectional exchange;
-- `two_bath_perpendicular_exchange.cpp`: directional and all-direction controls;
-- `test_geometric_robustness.cpp`: geometric-fit robustness in the separate open
-  escape model; and
-- `predict_endpoints_from_escape_chain.cpp`: a coarse-grained prediction test
-  for that open model.
-
-Only the first two are evidence for the closed equilibrium claims of this note.
-The latter two are listed to make the separation from the open formation model
-explicit.
+- `two_bath_reversible_exchange.cpp`: symmetric reversible exchange between two
+  initially unequal reservoirs.
 
 The reproducibility archive is the public repository
 #link("https://github.com/matterasmachine/matterasmachine")[github.com/matterasmachine/matterasmachine].
-The simulation code used for the reported runs is fixed at commit
-#link("https://github.com/matterasmachine/matterasmachine/commit/6cf453728bbf76d8ad3ef2f1c5755c42be30528b")[`6cf453728bbf76d8ad3ef2f1c5755c42be30528b`].
-The corresponding project folder can be viewed directly
-#link("https://github.com/matterasmachine/matterasmachine/tree/6cf453728bbf76d8ad3ef2f1c5755c42be30528b/thermodynamic-exchange")[at this permanent revision].
-Later manuscript edits may continue to cite this commit as long as the simulation
-code and reported numerical results remain unchanged.
+The corresponding project folder is
+#link("https://github.com/matterasmachine/matterasmachine/tree/main/thermodynamic-exchange")[available here].
+The release of this manuscript must be tagged or archived together with that
+source so that the reported code and document resolve to the same immutable
+revision; no DOI has yet been assigned.
 
-For each reported equilibrium run, one should retain the complete time series,
-repeat several independent seeds, and report confidence intervals rather than a
-single late snapshot. The present numbers are validation runs, not precision
-estimates of universal constants.
+The simulation is not an independent proof of equilibrium: detailed balance
+already supplies that proof. It validates the implementation, demonstrates
+convergence from unequal reservoirs, and measures finite-run agreement with the
+exact marginal. The reported run-to-run standard deviations and ESS diagnostics
+are not confidence intervals or precision estimates of universal constants.
 
 = Conclusion
 
-A minimal reversible exchange process among nonempty discrete particles is
-enough to produce a coherent ideal thermodynamics. Uniform fixed-energy
+A minimal reversible exchange process among nonempty discrete particles,
+together with the stated coarse-graining and size-independent particle-pair
+kernel, produces a coherent ideal thermodynamics. Uniform fixed-energy
 configurations have an exact finite marginal that approaches a geometric law.
 The logarithm of their multiplicity supplies entropy; differentiating entropy
 with respect to energy supplies temperature; and the resulting
@@ -591,18 +580,11 @@ one-quantum Markov process converges to
 this equilibrium, while two-reservoir simulations show energy equalization and
 vanishing late-time net flux.
 
-In the reported run, the six-direction perpendicular-exchange extension showed
-approximate agreement with the qualitative equilibrium statistics and reduced
-the interaction rate by the expected factor $2/3$. Because its transition
-weights are state-dependent and asymmetric, this observation is numerical only;
-it does not establish that the directional process has the same stationary law.
-It supports treating perpendicularity as a possible kinematic restriction, but
-not as the proved origin of the thermal law.
-
 The main conceptual result is therefore modest but concrete:
 
 #note[
-For discrete particles that reversibly exchange conserved equal-energy quanta,
+Within the stated occupancy coarse-graining and exchange kernel, for discrete
+particles that reversibly exchange conserved equal-energy quanta,
 temperature measures the equilibrium energy-per-particle scale selected by the
 number of accessible configurations. The Bose-Einstein denominator is the
 resulting occupancy relation, not an independently imposed exponential rule.
@@ -666,17 +648,3 @@ $ P_(Q,M)(m) arrow.r (1-r)r^m. $
 The restriction to fixed $m$ is the ordinary pointwise thermodynamic-limit
 statement. Uniform error bounds over a range of $m$ require specifying how that
 range grows with $M$.
-
-= Appendix B: a finite-difference temperature
-
-Before taking derivatives, define a discrete inverse temperature from the
-entropy gained when one quantum is added. The exact binomial ratio is
-$Omega(Q+1,M)/Omega(Q,M)=(Q+M)/(Q+1)$, and hence
-
-$ (Delta S)/epsilon
-  =(k/epsilon)log((Q+M)/(Q+1))
-  arrow.r 1/T=(k/epsilon)log((Q+M)/Q). $
-
-The arrow denotes the large-$Q,M$ limit. This formula makes clear that
-temperature measures the multiplicative increase in accessible configurations
-per added energy quantum.
