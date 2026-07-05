@@ -4,7 +4,7 @@
   numbering: "1",
   number-align: center + bottom,
 )
-#set text(font: "New Computer Modern", size: 9.4pt, lang: "en")
+#set text(font: "New Computer Modern", size: 9.35pt, lang: "en")
 #set par(justify: true, leading: 0.52em)
 #set heading(numbering: "1.")
 #show heading.where(level: 1): it => block(above: 1.25em, below: 0.6em)[
@@ -49,8 +49,9 @@
 #v(2mm)
 
 This note studies a minimal model of thermodynamic exchange among discrete
-particles. A particle is postulated to be a nonempty finite list of quanta
-and is constrained to remain at size $n>=1$. Relative to that minimum size, it
+particles. A particle is postulated to be a nonempty finite cyclic list of
+elementary instructions governing its microscopic motion and is constrained to
+remain at size $n>=1$. Relative to that minimum size, it
 has excess occupancy $m=n-1$. No particular list entry is a persistent baseline:
 an elementary event may transfer any selected quantum provided that the donor
 remains nonempty. Each transferred quantum carries energy $epsilon$, and total
@@ -65,7 +66,7 @@ $S=k log Omega$ and temperature by $1/T=(partial S)/(partial E)$ gives
 $r=exp[-epsilon/(k T)]$ and
 $⟨m⟩=1/[exp(epsilon/(k T))-1]$. Thus state counting fixes the geometric
 parameter consistently with the adopted thermodynamic definition of
-temperature. For a specified size-independent per-particle transfer kernel, a
+temperature. For a specified symmetric encounter-and-transfer kernel, a
 reversible one-quantum Markov process is shown to have the uniform
 microcanonical measure as its unique stationary distribution. Time-averaged,
 multiple-seed simulations of two initially unequal reservoirs agree with the
@@ -100,24 +101,38 @@ explicitly below.
 
 #note[
 *Ontological postulate.* Matter is discrete. A particle is identified with a
-finite nonempty list of elementary instructions, not merely represented by such
-a list for mathematical convenience. The empty list represents absence of a
-particle. Consequently, an existing particle has total length $n>=1$. Writing
-$n=1+m$, the exchangeable occupancy satisfies $m>=0$. The condition $n>=1$ is
-a boundary on total list length; it does not label any particular instruction
-as a protected baseline.
+finite nonempty cyclic list of elementary instructions governing its
+microscopic motion, not merely represented by such a list for mathematical
+convenience. The empty list represents absence of a particle. Consequently, an
+existing particle has total length $n>=1$. Writing $n=1+m$, the exchangeable
+occupancy satisfies $m>=0$. The condition $n>=1$ is a boundary on total list
+length; it does not label any particular instruction as a protected baseline.
+The particle acts externally as one object irrespective of list length. At each
+microscopic moment, exactly one current instruction is exposed to interaction;
+the remaining entries are not simultaneous interaction opportunities.
 ]
 
+Serial exposure also motivates inertia: changing one entry alters a length-$n$
+particle's normalized composition by order $1/n$, so the same interaction rate
+changes a longer list's motion more slowly. This resembles $a prop 1/m$ in
+Newton's second law, but is not a derivation of $F=m a$.
+
+The instruction alphabet, its internal attributes, and the microscopic
+compatibility rules governing transfer are intentionally not specified in this
+work. They belong to a separate microscopic theory. The present theorem begins
+only after those unknown rules are projected to an occupancy-level exchange
+process.
+
 #note[
-*Thermodynamic coarse-graining postulate.* Instruction identity, direction, and
-position in a list may matter to other dynamics, but they are not resolved by
-the present equilibrium model. Its energy and thermodynamic state depend only
-on the occupancies $(m_1,dots,m_M)$. Occupancy configurations are assigned equal
-weight. Equivalently, any unresolved list-level degeneracy is assumed to give
-the same multiplicative factor to every fixed-$Q$ occupancy configuration. This
-postulate is essential: if list order or instruction identity gives
-occupancy-dependent multiplicities, the stars-and-bars measure and the results
-below need not follow.
+*Thermodynamic coarse-graining postulate.* Instruction identity, internal
+attributes, and position in a list may matter to microscopic dynamics, but they
+are not resolved by the present equilibrium model. Its energy and thermodynamic
+state depend only on the occupancies $(m_1,dots,m_M)$. Occupancy configurations
+are assigned equal weight. Equivalently, any unresolved list-level degeneracy
+is assumed to give the same multiplicative factor to every fixed-$Q$ occupancy
+configuration. This postulate is essential: if list order or instruction
+identity gives occupancy-dependent multiplicities, the stars-and-bars measure
+and the results below need not follow.
 ]
 
 This paper establishes consequences of that postulate only within the stated
@@ -135,10 +150,9 @@ not as site occupancies in an auxiliary stochastic model. Scientific support for
 that ontology requires distinctive empirical predictions beyond reproducing
 established equilibrium statistics.
 
-Several topics are intentionally excluded. There is no spatial escape in the
-equilibrium derivation, no cosmological loss or "tired light," no creation of
-matter, and no pressure-volume law. These belong to separate models and should
-not be used to justify the equilibrium result proved here.
+The present result concerns a closed fixed-energy exchange ensemble. Extensions
+to spatial transport or open-system boundary processes require additional
+dynamics.
 
 = Discrete particles and conserved exchange energy
 
@@ -395,22 +409,24 @@ idealized occupancy description.
 The counting above describes equilibrium. We now give a process that reaches it.
 At each discrete update:
 
-+ Choose an ordered pair of distinct particles $(i,j)$ uniformly.
++ Choose an ordered pair of distinct particles $(i,j)$ with probability
+  $c_(i j)$, where $c_(i j)=c_(j i)$ and the encounter graph is connected.
 + If $m_i>0$, transfer one quantum from $i$ to $j$.
 + If $m_i=0$, perform no transfer.
 
-Uniform selection of the donor *particle*, rather than uniform selection among
-all transferable instructions, is an independent kinetic postulate of this
-model. It makes the attempted transfer rate size-independent. Discreteness and
-reversibility alone do not select this kernel: choosing instructions uniformly
-would make donor rates occupancy-dependent and can produce a different
-stationary measure. A physical application must therefore justify or test the
-size-independent per-particle interaction rate.
+The particles need not encounter every other particle equally often. The theorem
+requires only that the same physical encounter has no donor-label bias,
+$c_(i j)=c_(j i)$, and that the accessible encounter graph is connected. The
+single-current-instruction postulate explains why a particle of length $n$ does
+not present $n$ simultaneous transfer opportunities. Thus the attempted
+transfer rate per encounter need not scale with occupancy. Selecting uniformly
+among every stored instruction instead would create occupancy-dependent donor
+rates and can produce a different stationary measure.
 
 For any two neighboring configurations $a$ and $b$ connected by moving one
 quantum from $i$ to $j$,
 
-$ P(a arrow.r b)=1/[M(M-1)]=P(b arrow.r a). $
+$ P(a arrow.r b)=c_(i j)=c_(j i)=P(b arrow.r a). $
 
 Thus the transition matrix is symmetric on every allowed edge. The uniform
 measure
@@ -434,8 +450,9 @@ This argument identifies the essential assumptions:
 - reversibility with equal forward and reverse edge weights; and
 - sufficient connectivity to explore the full fixed-$Q$ state space.
 
-The first item alone is not sufficient; the equal edge weights generated by
-uniform particle-pair selection are what make the stationary measure uniform.
+The first item alone is not sufficient; symmetric forward and reverse edge
+weights are what make the stationary measure uniform. Uniform particle-pair
+selection is only the special case used in the numerical implementation.
 
 If physical exchange rules violate these conditions, a different stationary
 law may result.
@@ -499,6 +516,16 @@ the conserved global mean $nu=4.5$ gives
 
 $ "TV(geometric)"=0.001414 plus.minus 0.000180. $
 
+#figure(
+  image("thermodynamic-simulation-and-fits.png", width: 100%),
+  caption: [
+    Post-burn-in reversible-exchange simulation (bars), the exact finite
+    marginal (red), and the thermodynamic-limit geometric law (orange). The
+    predictions use the conserved $Q=9000$ and $M=2000$; no parameter is fitted
+    to the displayed histogram.
+  ],
+)
+
 To quantify temporal dependence, the code estimates the integrated
 autocorrelation time of the $nu_A$ snapshot series by summing positive empirical
 autocorrelations. Across runs,
@@ -537,36 +564,7 @@ The present construction differs in interpretation: the containers are
 identified with finite nonempty discrete particles and the quanta with
 transferable list entries. The boundary of the result—single energy rather than
 a spectrum, occupancy mathematics rather than quantum mechanics, and closed
-equilibrium rather than formation or escape—is collected in Section 9.
-
-= What has and has not been derived
-
-Within the stated model, the following results are derived:
-
-- the exact finite marginal $P_(Q,M)(m)$;
-- its geometric thermodynamic limit;
-- entropy $S=k log Omega$;
-- the thermodynamic-limit temperature relation
-  $r=exp[-epsilon/(k T)]$;
-- the Bose-Einstein-shaped mean occupancy;
-- internal energy and heat capacity;
-- equality of temperature as the condition for maximal total entropy and zero
-  late-time mean flux; and
-- convergence of a specified reversible exchange chain to the microcanonical
-  equilibrium.
-
-The following are not derived:
-
-- the microscopic origin or numerical value of $epsilon$;
-- the physical identity of the transferable quanta;
-- the Planck spectral factor or density of states;
-- pressure, volume, mechanical work, or an equation of state;
-- chemical potential when particle number changes;
-- creation, annihilation, reset events, or cosmological redshift; and
-- quantum mechanics or the ontology of real elementary particles.
-
-This boundary is not cosmetic. It separates a reproducible mathematical result
-from hypotheses that require additional dynamics and empirical tests.
+equilibrium rather than formation or escape—is maintained throughout.
 
 = Reproducibility
 
@@ -592,7 +590,8 @@ are not confidence intervals or precision estimates of universal constants.
 
 = Conclusion
 
-The stated occupancy coarse-graining and size-independent particle-pair kernel
+The stated occupancy coarse-graining, single-current-instruction postulate, and
+symmetric encounter-and-transfer kernel
 produce a coherent ideal equilibrium model. Uniform fixed-energy
 configurations have an exact finite marginal that approaches a geometric law.
 Adopting $S=k log Omega$ and the thermodynamic definition of temperature maps
@@ -614,6 +613,45 @@ the counted configurations fix a geometric equilibrium parameter that can be
 written in Bose-Einstein-shaped thermodynamic form. This conclusion is
 conditional on both assumptions and does not establish a microscopic ontology.
 ]
+
+= Outlook: open systems and a low-size penalty
+
+The stationary law is a long-time limit, whereas a real source supplies only a
+finite number $L$ of interactions. Fixed-$L$ random-walk endpoints have a
+Gaussian-like tail $exp[-x^2/(2 L)]$, not the stationary exponential tail.
+Finite formation may therefore yield a Gaussian-like high-energy cutoff; the
+Sun's spectrum is one possible test of this distinction.
+
+#figure(
+  image("solar-short-wavelength-finite-walk-outlook.png", width: 100%),
+  caption: [
+    *Possible finite-interaction signature.* Short-wavelength (high-energy)
+    solar luminosity compared with a fitted Planck wavelength law and a
+    finite one-quantum walk starting at size one and absorbed at zero. The
+    comparison is illustrative; a quantitative empirical test and a complete
+    source model are left for future work.
+  ],
+)
+
+The restriction $n>=1$ belongs only to the closed equilibrium model. In the
+proposed full model, a size-one particle may lose its final instruction through
+$1 arrow.r 0$ and disappear; zero denotes absence, not another particle size.
+If surrounding matter supplies size-one particles within a dense region, that
+left-boundary input can balance deaths locally. Outside the supplied region,
+absorption breaks detailed balance and geometric equilibrium need not persist.
+
+A separate absorbing random-walk model suggests a more specific possibility.
+For an unbiased one-quantum walk with absorption at zero, the characteristic
+lifetime from initial size $x$ scales as $x^2$. Under stationary production, if
+the observed population at size $x$ is proportional to this lifetime, applying
+that survival factor to the Bose-shaped occupancy term gives
+
+$ N(x) prop x^2/(exp(x)-1). $
+
+This black-body photon-number shape suggests a mode-free interpretation: closed
+exchange supplies the denominator and open loss penalizes the smallest
+particles. Application to black-body or solar radiation requires a separate
+production and boundary model; it is not part of the present theorem.
 
 = References
 
