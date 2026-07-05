@@ -31,8 +31,8 @@
 #align(center)[
   #v(7mm)
   #text(size: 17pt, weight: "bold", fill: rgb("15263b"))[
-    Thermodynamic Equilibrium from Reversible #linebreak()
-    One-Quantum Exchange among Discrete Particles
+    Geometric Equilibrium from a Specified Reversible #linebreak()
+    Exchange Model of Discrete Particle Interiors
   ]
   #v(3mm)
   #text(size: 11.5pt, weight: "medium", fill: rgb("173f68"))[
@@ -63,9 +63,9 @@ $nu=Q/M$, a geometric marginal
 $P(m)=(1-r)r^m$ with $r=nu/(1+nu)$. Defining entropy by
 $S=k log Omega$ and temperature by $1/T=(partial S)/(partial E)$ gives
 $r=exp[-epsilon/(k T)]$ and
-$⟨m⟩=1/[exp(epsilon/(k T))-1]$. Thus the exponential thermal
-parameter is obtained from state counting rather than inserted as a change of
-variables. For a specified size-independent per-particle transfer kernel, a
+$⟨m⟩=1/[exp(epsilon/(k T))-1]$. Thus state counting fixes the geometric
+parameter consistently with the adopted thermodynamic definition of
+temperature. For a specified size-independent per-particle transfer kernel, a
 reversible one-quantum Markov process is shown to have the uniform
 microcanonical measure as its unique stationary distribution. Time-averaged,
 multiple-seed simulations of two initially unequal reservoirs agree with the
@@ -128,7 +128,7 @@ Mathematically, the counting is the familiar distribution of indistinguishable
 quanta among distinguishable containers and is closely related to standard
 Bose-Einstein occupancy counting. At the level of stochastic occupancy dynamics,
 the model also overlaps with zero-range and related particle-transfer processes
-[6]. The claim is therefore not that the combinatorial formula or the general
+[5]. The claim is therefore not that the combinatorial formula or the general
 transfer-process mathematics is new. The distinct claim is interpretive: the
 occupancies are proposed as the literal discrete internal matter of particles,
 not as site occupancies in an auxiliary stochastic model. Scientific support for
@@ -233,20 +233,23 @@ Thus the geometric law is both the limiting marginal of uniform compositions
 and the distribution whose mean equals the conserved excess occupancy per
 particle.
 
-= Entropy and the emergence of temperature
+= Entropy and thermodynamic parametrization
 
 Define microcanonical entropy by
 
 $ S(E,M)=k log Omega(Q,M), quad Q=E/epsilon, $
 
-where $k$ fixes the temperature unit. Because energy is discrete, define the
-finite-system inverse temperature by the entropy gained when one quantum is
-added:
+where $k$ fixes the temperature unit. Because energy is discrete, one possible
+finite-system convention is the forward-difference inverse temperature obtained
+when one quantum is added:
 
 $ 1/T_(Q,M):=(S(Q+1,M)-S(Q,M))/epsilon
   =(k/epsilon)log((Q+M)/(Q+1)). $
 
-This is exact. In the thermodynamic limit it approaches
+This formula is exact for that convention, but the convention is not unique:
+backward and centered differences give different finite-$Q$ values. Their
+differences vanish in the thermodynamic limit, where the forward expression
+approaches
 
 $ 1/T=(k/epsilon)log((Q+M)/Q)
   =(k/epsilon)log(1+1/nu). $
@@ -289,9 +292,9 @@ $ P(m)=
   (1-exp[-epsilon/(k T)]) exp[-m epsilon/(k T)]. $
 
 #note[
-The exponential factor has not been postulated. It follows from the logarithmic
-growth of the number of configurations and the thermodynamic definition
-$ 1/T=frac(partial S, partial E). $
+The counting model supplies the value of the geometric parameter consistent
+with $S=k log Omega$ and the thermodynamic definition of temperature. It does
+not independently derive that definition.
 ]
 
 This is the mathematical single-energy Bose-Einstein occupancy form. It is not
@@ -335,7 +338,10 @@ $ u(T) approx epsilon exp[-epsilon/(k T)], quad c(T) arrow.r 0. $
 == Zeroth law: an operational temperature
 
 Place two subsystems $A$ and $B$ in weak exchange contact while conserving
-$E_A+E_B$. The total multiplicity is
+$E_A+E_B$. This argument assumes that both use the same quantum energy
+$epsilon$ and that one-quantum exchanges between them are allowed. If their
+energy spacings differ, the allowed transfers and equilibrium condition require
+additional specification. The total multiplicity is
 
 $ Omega_"tot"(E_A)=Omega_A(E_A)Omega_B(E-E_A), $
 
@@ -364,8 +370,9 @@ Therefore
 
 $ Delta E_A+Delta E_B=0. $
 
-There is heat exchange but no work term in the present model. Its first-law
-content is simply conservation of exchange energy.
+Energy transferred between the two subsystems may be classified as heat. The
+closed composite exchanges no heat with an environment and has no work term;
+its first-law content here is conservation of exchange energy.
 
 == Equilibrium concentration and typicality
 
@@ -443,9 +450,12 @@ reservoir $B$ with mean excess occupancy $1$. Thus the conserved global mean is
 
 $ nu_"global"=(8+1)/2=4.5. $
 
-Eight runs use consecutive fixed seeds. Each run has $5$ million burn-in updates
+Initialization starts every occupancy at zero, then assigns $8000$ quanta
+independently and uniformly among the particles of $A$ and $1000$ among those of
+$B$. Eight runs use the explicit seeds $2026070403$ through $2026070410$. Each
+run has $5$ million burn-in updates
 followed by $20$ million measured updates; the full $2000$-particle histogram is
-sampled every $100,000$ measured updates. The resulting time-averaged values,
+sampled every $20,000$ measured updates. The resulting time-averaged values,
 reported as mean $plus.minus$ sample standard deviation across runs, are
 
 #block(breakable: false)[
@@ -454,8 +464,8 @@ reported as mean $plus.minus$ sample standard deviation across runs, are
   columns: (1.55fr, 1fr, 1fr, 1.2fr),
   align: (left, right, right, right),
   [quantity], [mean], [run SD], [target],
-  [$nu_A$], [4.50719], [0.00926], [4.50000],
-  [$nu_B$], [4.49282], [0.00926], [4.50000],
+  [$nu_A$], [4.50819], [0.00929], [4.50000],
+  [$nu_B$], [4.49181], [0.00929], [4.50000],
   [net cross-flux], [$-4 times 10^(-6)$], [$1.7 times 10^(-5)$], [0],
 )
 ]
@@ -469,31 +479,41 @@ $ r=4.5/5.5=0.818182, quad
 The reservoir means fluctuate around $4.5$ rather than remaining exactly equal,
 as expected for finite systems.
 
+The reported net cross-flux is
+
+$ (N_(A arrow.r B)-N_(B arrow.r A))/N_"cross attempts", $
+
+where the denominator counts every measured update whose ordered donor-receiver
+pair crosses the reservoir boundary, including attempts with an empty donor.
+
 == Exact finite-law test
 
 The code constructs the exact finite marginal $P_(9000,2000)(m)$ from its
 adjacent ratio, without fitting a parameter to either reservoir. It then compares
 that prediction with the pooled post-burn-in histogram. Across the eight runs,
 
-$ "TV(exact)"=0.002702 plus.minus 0.000186. $
+$ "TV(exact)"=0.001396 plus.minus 0.000179. $
 
 For reference, comparison with the thermodynamic-limit geometric law fixed by
 the conserved global mean $nu=4.5$ gives
 
-$ "TV(geometric)"=0.002715 plus.minus 0.000162. $
+$ "TV(geometric)"=0.001414 plus.minus 0.000180. $
 
 To quantify temporal dependence, the code estimates the integrated
 autocorrelation time of the $nu_A$ snapshot series by summing positive empirical
 autocorrelations. Across runs,
 
-$ tau_"int"=1.108 plus.minus 0.235 " snapshots", quad
-  "ESS"=92.98 plus.minus 14.75 $
+$ tau_"int"=4.876 plus.minus 1.289 " snapshots", quad
+  "ESS"=108.19 plus.minus 25.05 $
 
-out of 200 stored snapshots per run. These spreads are sample standard
+out of 1000 stored snapshots per run. These spreads are sample standard
 deviations across eight runs, not confidence intervals. Particle values within
 a snapshot are also constrained by fixed $Q$, so these diagnostics do not prove
 that the TV discrepancy is mostly sampling noise. They show close finite-run
-agreement with the exact law at the tested scale.
+agreement with the exact law at the tested scale. The $5$-million-update burn-in
+is an operational choice checked against the reservoir-energy traces, not a
+rigorous mixing-time bound; the detailed-balance theorem, rather than this
+finite run, establishes the limiting stationary law.
 
 = Relation to Bose-Einstein statistics
 
@@ -505,10 +525,13 @@ and mean
 
 $ ⟨m⟩=1/(exp(beta epsilon)-1) $
 
-are the standard single-energy bosonic occupancy formulas at zero chemical
-potential. Bose's original radiation counting and Einstein's extension to an
-ideal gas established the historical quantum-statistical setting for these
-expressions [1, 2].
+have the same algebraic form as a single-energy bosonic occupancy law written
+with $mu=0$. More generally, conventional notation gives
+$r=exp[-beta(epsilon-mu)]$. Because this model has only one energy and conserves
+$Q$, it cannot identify $T$ and $mu$ independently. Its relation
+$r=exp[-beta epsilon]$ is therefore a convenient thermodynamic parametrization,
+not a derived physical statement that the chemical potential vanishes. Bose's
+and Einstein's work supplies the historical quantum-statistical setting [1, 2].
 
 The present construction differs in interpretation: the containers are
 identified with finite nonempty discrete particles and the quanta with
@@ -555,10 +578,10 @@ implemented in the accompanying source files:
 
 The reproducibility archive is the public repository
 #link("https://github.com/matterasmachine/matterasmachine")[github.com/matterasmachine/matterasmachine].
-The exact source revision associated with this manuscript is commit
-#link("https://github.com/matterasmachine/matterasmachine/commit/f46f9f5fd6bb6b4e3bcbe4d1c48fccfca8055825")[`f46f9f5fd6bb6b4e3bcbe4d1c48fccfca8055825`].
-The corresponding project folder is available
-#link("https://github.com/matterasmachine/matterasmachine/tree/f46f9f5fd6bb6b4e3bcbe4d1c48fccfca8055825/thermodynamic-exchange")[at this immutable revision].
+The exact manuscript and source release is
+#link("https://github.com/matterasmachine/matterasmachine/releases/tag/thermodynamic-exchange-v1.0")[`thermodynamic-exchange-v1.0`],
+and its project folder is available
+#link("https://github.com/matterasmachine/matterasmachine/tree/thermodynamic-exchange-v1.0/thermodynamic-exchange")[at that tagged revision].
 No DOI has yet been assigned.
 
 The simulation is not an independent proof of equilibrium: detailed balance
@@ -569,25 +592,27 @@ are not confidence intervals or precision estimates of universal constants.
 
 = Conclusion
 
-A minimal reversible exchange process among nonempty discrete particles,
-together with the stated coarse-graining and size-independent particle-pair
-kernel, produces a coherent ideal thermodynamics. Uniform fixed-energy
+The stated occupancy coarse-graining and size-independent particle-pair kernel
+produce a coherent ideal equilibrium model. Uniform fixed-energy
 configurations have an exact finite marginal that approaches a geometric law.
-The logarithm of their multiplicity supplies entropy; differentiating entropy
-with respect to energy supplies temperature; and the resulting
-thermodynamic-limit geometric ratio is $r=exp[-epsilon/(k T)]$. A symmetric
+Adopting $S=k log Omega$ and the thermodynamic definition of temperature maps
+the counted multiplicity to the thermodynamic-limit geometric ratio
+$r=exp[-epsilon/(k T)]$. A symmetric
 one-quantum Markov process converges to
 this equilibrium, while two-reservoir simulations show energy equalization and
 vanishing late-time net flux.
 
-The main conceptual result is therefore modest but concrete:
+The list ontology motivates the model but is not evidence that real particles
+have this structure. Such evidence requires a discriminating empirical
+prediction not shared by ordinary balls-in-boxes or zero-range models. The
+mathematical result is modest but concrete:
 
 #note[
 Within the stated occupancy coarse-graining and exchange kernel, for discrete
 particles that reversibly exchange conserved equal-energy quanta,
-temperature measures the equilibrium energy-per-particle scale selected by the
-number of accessible configurations. The Bose-Einstein denominator is the
-resulting occupancy relation, not an independently imposed exponential rule.
+the counted configurations fix a geometric equilibrium parameter that can be
+written in Bose-Einstein-shaped thermodynamic form. This conclusion is
+conditional on both assumptions and does not establish a microscopic ontology.
 ]
 
 = References
@@ -610,41 +635,7 @@ Sätzen über das Wärmegleichgewicht," _Wiener Berichte_ *76* (1877), 373-435.
 [4] R. K. Pathria and P. D. Beale, _Statistical Mechanics_, 3rd ed.,
 Elsevier, 2011, chapters 1, 3, and 7.
 
-[5] Matter-as-machine, "Geometric Occupancy from Weighted One-Quantum
-Gain/Loss Histories: Relation to Bose-Einstein and Planck Forms," unpublished
-note, 2026.
-
-[6] M. R. Evans and T. Hanney, "Nonequilibrium Statistical Mechanics of the
+[5] M. R. Evans and T. Hanney, "Nonequilibrium Statistical Mechanics of the
 Zero-Range Process and Related Models," _Journal of Physics A: Mathematical and
 General_ *38* (2005), R195-R240.
 #link("https://doi.org/10.1088/0305-4470/38/19/R01")[doi:10.1088/0305-4470/38/19/R01].
-
-#set heading(numbering: none)
-
-= Appendix A: finite marginal and geometric convergence
-
-For completeness, expand the exact marginal as a product. From the adjacent
-ratio,
-
-$ P_(Q,M)(m)=P_(Q,M)(0)
-  product_(j=0)^(m-1) (Q-j)/(Q-j+M-2). $
-
-Also,
-
-$ P_(Q,M)(0)=(M-1)/(Q+M-1). $
-
-At fixed $nu=Q/M$ and fixed $m$,
-
-$ P_(Q,M)(0) arrow.r 1/(1+nu)=1-r $
-
-and every factor in the finite product approaches
-
-$ Q/(Q+M)=nu/(1+nu)=r. $
-
-Therefore
-
-$ P_(Q,M)(m) arrow.r (1-r)r^m. $
-
-The restriction to fixed $m$ is the ordinary pointwise thermodynamic-limit
-statement. Uniform error bounds over a range of $m$ require specifying how that
-range grows with $M$.

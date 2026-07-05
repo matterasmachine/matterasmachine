@@ -67,7 +67,7 @@ Result run(std::uint64_t seed) {
   constexpr int Q = 9000;
   constexpr std::int64_t burn_in = 5'000'000;
   constexpr std::int64_t measured_steps = 20'000'000;
-  constexpr std::int64_t sample_every = 100'000;
+  constexpr std::int64_t sample_every = 20'000;
 
   std::mt19937_64 rng(seed);
   std::vector<int> occupancy(M, 0);
