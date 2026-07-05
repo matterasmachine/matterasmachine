@@ -555,11 +555,11 @@ implemented in the accompanying source files:
 
 The reproducibility archive is the public repository
 #link("https://github.com/matterasmachine/matterasmachine")[github.com/matterasmachine/matterasmachine].
-The corresponding project folder is
-#link("https://github.com/matterasmachine/matterasmachine/tree/main/thermodynamic-exchange")[available here].
-The release of this manuscript must be tagged or archived together with that
-source so that the reported code and document resolve to the same immutable
-revision; no DOI has yet been assigned.
+The exact source revision associated with this manuscript is commit
+#link("https://github.com/matterasmachine/matterasmachine/commit/f46f9f5fd6bb6b4e3bcbe4d1c48fccfca8055825")[`f46f9f5fd6bb6b4e3bcbe4d1c48fccfca8055825`].
+The corresponding project folder is available
+#link("https://github.com/matterasmachine/matterasmachine/tree/f46f9f5fd6bb6b4e3bcbe4d1c48fccfca8055825/thermodynamic-exchange")[at this immutable revision].
+No DOI has yet been assigned.
 
 The simulation is not an independent proof of equilibrium: detailed balance
 already supplies that proof. It validates the implementation, demonstrates
