@@ -4,8 +4,8 @@
   numbering: "1",
   number-align: center + bottom,
 )
-#set text(font: "New Computer Modern", size: 10pt, lang: "en")
-#set par(justify: true, leading: 0.58em)
+#set text(font: "New Computer Modern", size: 9.7pt, lang: "en")
+#set par(justify: true, leading: 0.56em)
 #set heading(numbering: "1.")
 #show heading.where(level: 1): it => block(above: 1.25em, below: 0.6em)[
   #set text(size: 13.2pt, weight: "semibold", fill: rgb("173f68"))
@@ -93,13 +93,30 @@ parts:
 - a stochastic dynamics that actually approaches that equilibrium by reversible
   one-quantum transfers.
 
-The note uses the language of particles as lists because that is the intended
-interpretation. Mathematically, however, the same counting is the familiar
-distribution of indistinguishable quanta among distinguishable containers. It
-is closely related to standard Bose-Einstein occupancy counting. The claim is
-therefore not that the combinatorial formula is new. The useful point is that a
-very small set of explicit list-exchange rules realizes it dynamically and
-gives temperature an operational meaning within that model.
+#note[
+*Ontological postulate.* Matter is discrete. A particle is identified with a
+finite nonempty list of elementary instructions, not merely represented by such
+a list for mathematical convenience. The empty list represents absence of a
+particle. Consequently, an existing particle has total length $n>=1$. Writing
+$n=1+m$, the exchangeable occupancy satisfies $m>=0$. The condition $n>=1$ is
+a boundary on total list length; it does not label any particular instruction
+as a protected baseline.
+]
+
+This paper establishes consequences of that postulate only within the stated
+reversible exchange model. It does not establish that real elementary particles
+possess this structure.
+
+Mathematically, the counting is the familiar distribution of indistinguishable
+quanta among distinguishable containers and is closely related to standard
+Bose-Einstein occupancy counting. At the level of stochastic occupancy dynamics,
+the model also overlaps with zero-range and related particle-transfer processes
+[6]. The claim is therefore not that the combinatorial formula or the general
+transfer-process mathematics is new. The distinct claim is interpretive: the
+occupancies are proposed as the literal discrete internal matter of particles,
+not as site occupancies in an auxiliary stochastic model. Scientific support for
+that ontology requires distinctive empirical predictions beyond reproducing
+established equilibrium statistics.
 
 Several topics are intentionally excluded. There is no spatial escape in the
 equilibrium derivation, no cosmological loss or "tired light," no creation of
@@ -614,6 +631,11 @@ Elsevier, 2011, chapters 1, 3, and 7.
 [5] Matter-as-machine, "Geometric Occupancy from Weighted One-Quantum
 Gain/Loss Histories: Relation to Bose-Einstein and Planck Forms," unpublished
 note, 2026.
+
+[6] M. R. Evans and T. Hanney, "Nonequilibrium Statistical Mechanics of the
+Zero-Range Process and Related Models," _Journal of Physics A: Mathematical and
+General_ *38* (2005), R195-R240.
+#link("https://doi.org/10.1088/0305-4470/38/19/R01")[doi:10.1088/0305-4470/38/19/R01].
 
 #set heading(numbering: none)
 
