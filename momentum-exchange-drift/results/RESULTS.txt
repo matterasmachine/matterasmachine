@@ -5,6 +5,10 @@ Source:
 
     src/nonlinear_random_walk_drift.cpp
 
+Code commit:
+
+    f15edbff493b83a9595506a30ef1910fa6628af7
+
 Command:
 
     make run-drift
