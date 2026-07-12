@@ -1,0 +1,50 @@
+Rule under test:
+  if coin: k += 1; v -= 1/(N-k)
+  else:    k -= 1; v += 1/(N-k)
+  x += v
+Displayed attraction direction is -x, -v.
+
+CONFIG: small-N visible signal
+  N=1000 walkers=8000 ticks=5000 runs=30
+  positive mean x runs:   30/30
+  positive median x runs: 30/30
+  positive mean v runs:   30/30
+  avg displayed mean x:   12.77877735  theory ~ 12.5025  sem 0.4140727628
+  avg displayed median x: 8.192095878
+  avg displayed mean v:   0.005139391915  theory ~ 0.005  sem 0.0001303240378
+  avg displayed median v: 0.002452974921
+  avg final k:            0.1072833333
+
+CONFIG: UI-like medium run
+  N=10000 walkers=8000 ticks=20000 runs=16
+  positive mean x runs:   15/16
+  positive median x runs: 12/16
+  positive mean v runs:   14/16
+  avg displayed mean x:   2.00393969  theory ~ 2.0001  sem 0.452336721
+  avg displayed median x: 1.280100446
+  avg displayed mean v:   0.0001939176055  theory ~ 0.0002  sem 4.572116428e-05
+  avg displayed median v: 0.000125002168
+  avg final k:            -0.055609375
+
+CONFIG: large-N weak signal
+  N=100000 walkers=8000 ticks=20000 runs=16
+  positive mean x runs:   11/16
+  positive median x runs: 9/16
+  positive mean v runs:   10/16
+  avg displayed mean x:   0.07296102701  theory ~ 0.020001  sem 0.04330043044
+  avg displayed median x: 0.06793778427
+  avg displayed mean v:   1.508154193e-06  theory ~ 2e-06  sem 3.240181319e-06
+  avg displayed median v: 3.750590262e-07
+  avg final k:            -0.049609375
+
+CONFIG: larger ensemble check
+  N=10000 walkers=20000 ticks=20000 runs=8
+  positive mean x runs:   8/8
+  positive median x runs: 7/8
+  positive mean v runs:   8/8
+  avg displayed mean x:   2.384517998  theory ~ 2.0001  sem 0.362061835
+  avg displayed median x: 1.155443108
+  avg displayed mean v:   0.0002024815717  theory ~ 0.0002  sem 2.943095546e-05
+  avg displayed median v: 0.0001001142357
+  avg final k:            0.015475
+
