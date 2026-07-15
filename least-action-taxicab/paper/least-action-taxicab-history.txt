@@ -12,10 +12,10 @@ its probability or multiplicity. In regimes where the relevant classical
 extremal is support-maximizing, the most probable macroscopic path is then the
 path of least effective action.
 
-The second layer gives a physical realization using a finite six-direction
+The second layer gives a physical realization using a finite directional
 instruction basis. A particle is represented by integer counts of momentum
-quanta along the three pairs of opposite axial directions R, L, U, D, F, and B.
-Interactions are local one-quantum add/remove exchanges. Silent replacement of
+quanta assigned to pairs of opposite primitive directions. Interactions are
+local one-quantum add/remove exchanges. Silent replacement of
 one quantum by another is not allowed. In this realization, velocity is the
 normalized direction-count imbalance, momentum is the direction-count
 imbalance itself, and force is the rate at which biased exchanges change that
@@ -34,18 +34,18 @@ follows from the count-velocity relation in the simplest normalization. The
 exact numerical coefficient of the multinomial counting penalty depends on the
 chosen rest distribution and velocity normalization.
 
-Finally, the note proves two bridge lemmas. The first converts local state
-multiplicity into a path cost when coarse-grained history weights factorize in
-time. The second gives a sufficient microscopic support law under which a
-position-dependent exchange process produces the classical potential term with
-the required sign. These are conditional theorems: their conclusions follow
-from explicit hypotheses, but a concrete interaction must still be shown to
-satisfy those hypotheses. The force/flux itself remains interaction-specific
-and must be derived separately for each field.
+Finally, the note proves an exact free-history theorem for an independent-block
+proxy process and gives a conditional field lemma. The theorem does not yet
+cover the persistent add/remove particle inventory described in the physical
+dictionary; extending it to that correlated dynamics is a separate task. The
+field lemma assumes an exponential occupation-support rate whose exponent is
+already proportional to the desired potential. It proves the consequences and
+required sign of that assumption, but does not derive the support law from a
+generic exchange bias. The force/flux remains interaction-specific.
 
-The most important verification burdens are therefore visible from the start:
-state multiplicity must become a per-time-slice path weight, and a concrete
-field model must prove the potential-support law used for its position term.
+The free independent process therefore has a derived kinetic path weight. The
+remaining verification burdens concern persistent or correlated microscopic
+dynamics and the potential-support law required for a concrete field.
 
 
 1. The combinatorial layer
@@ -127,21 +127,18 @@ Only after direction counts, momentum quanta, and exchange rules are introduced
 does it become a candidate physical action.
 
 
-3. Finite six-direction state space
------------------------------------
+3. Finite directional state space
+---------------------------------
 
-The physical realization uses six primitive momentum directions:
+Let the microscopic model contain a finite set of primitive direction vectors:
 
-    R, L, U, D, F, B.
+    D = {e_d}.
 
-These correspond to the positive and negative directions of three spatial axes.
-A particle state is represented by six nonnegative integer counts:
+For every direction e_d, the set also contains its opposite -e_d. A particle
+state is represented by nonnegative integer occupation counts N_d. The total
+count is:
 
-    N_R, N_L, N_U, N_D, N_F, N_B.
-
-The total count is:
-
-    N = N_R + N_L + N_U + N_D + N_F + N_B.
+    N = sum_d N_d.
 
 If each quantum carries a fixed elementary energy epsilon, then:
 
@@ -151,7 +148,7 @@ Thus total energy accounting is total count accounting.
 
 The directional imbalance is:
 
-    q = (N_R - N_L, N_U - N_D, N_F - N_B).
+    q = sum_d N_d e_d.
 
 The coarse velocity is defined as:
 
@@ -169,74 +166,49 @@ N but different velocities because their direction counts have different
 imbalances.
 
 Rest mass is therefore not interpreted as the absence of momentum quanta. It is
-interpreted as balanced momentum content. In one dimension, a rest-like state is:
+interpreted as balanced momentum content. In the simplest one-dimensional
+opposite pair, a rest-like state is:
 
-    N_R = N/2
-    N_L = N/2.
+    N_+ = N/2
+    N_- = N/2.
 
 A moving state with the same total count is:
 
-    N_R = N/2 + k
-    N_L = N/2 - k.
+    N_+ = N/2 + k
+    N_- = N/2 - k.
 
 The total count, and therefore the energy accounting in this simplified
 picture, is unchanged. What changed is the imbalance:
 
-    q = N_R - N_L = 2k.
+    q = N_+ - N_- = 2k.
 
 This distinction will be used below to separate physical energy accounting from
 statistical action cost.
 
 
-4. Euclidean direction from discrete axial proportions
--------------------------------------------------------
+4. Direction representation and geometry
+-----------------------------------------
 
-For a requested unit Euclidean direction:
+The derivation does not require a particular number or arrangement of primitive
+directions. A requested coarse direction is represented by occupation
+proportions p_d satisfying:
 
-    u = (u_x, u_y, u_z),
+    p_d >= 0,
+    sum_d p_d = 1.
 
-with:
+Its normalized mean direction is:
 
-    u_x^2 + u_y^2 + u_z^2 = 1,
+    v = sum_d p_d e_d = q/N.
 
-one finite six-direction realization is given by the proportions:
+Different finite bases may realize different microscopic geometries and may
+produce different normalization factors. None of those choices changes the
+combinatorial argument below. What matters is that motion is encoded by an
+imbalance of discrete directional counts and that a balanced reference state
+exists.
 
-    p_R = (1 + u_x) / 6
-    p_L = (1 - u_x) / 6
-    p_U = (1 + u_y) / 6
-    p_D = (1 - u_y) / 6
-    p_F = (1 + u_z) / 6
-    p_B = (1 - u_z) / 6.
-
-Then:
-
-    p_R - p_L = u_x / 3
-    p_U - p_D = u_y / 3
-    p_F - p_B = u_z / 3.
-
-Therefore, after averaging over a complete instruction list:
-
-    v = u / 3.
-
-The speed is:
-
-    |v| = 1/3,
-
-independent of direction in the large-N limit. Finite lists introduce rounding
-error, which vanishes as N grows.
-
-This section is not required for the abstract combinatorial theorem. It is
-required to show that a six-direction integer count model can approximate
-ordinary three-dimensional Euclidean motion.
-
-This is a direction-only construction at a fixed encoded speed. It should not be
-confused with the more general velocity-imbalance dictionary:
-
-    v = q/N.
-
-The direction construction chooses proportions whose net speed is |v|=1/3 for
-unit Euclidean directions. The general imbalance dictionary allows different
-speed magnitudes, bounded only by the finite direction counts.
+For finite N, the proportions must be rounded to integer counts. The resulting
+direction error vanishes as N grows whenever the chosen basis can approximate
+the requested coarse directions.
 
 
 5. Exchange invariant
@@ -249,9 +221,7 @@ Allowed events:
     add(d):    N_d -> N_d + 1, N -> N + 1
     remove(d): N_d -> N_d - 1, N -> N - 1
 
-for one direction d in:
-
-    {R, L, U, D, F, B}.
+for one primitive direction d in D.
 
 Silent replacement is not allowed:
 
@@ -280,7 +250,7 @@ carriers, sources, or surrounding matter.
 
 The direction-count imbalance:
 
-    q = (N_R - N_L, N_U - N_D, N_F - N_B)
+    q = sum_d N_d e_d
 
 plays the role of momentum up to a fixed scale. If one quantum carries momentum
 unit p0, then:
@@ -301,13 +271,7 @@ rate for direction d. Then:
 
     d E[N_d] / dt = lambda_d^+ - lambda_d^-.
 
-For the x component:
-
-    d E[q_x] / dt =
-        (lambda_R^+ - lambda_R^-)
-      - (lambda_L^+ - lambda_L^-).
-
-Similarly for y and z. In vector form:
+In vector form:
 
     d E[q] / dt = sum_d e_d (lambda_d^+ - lambda_d^-),
 
@@ -321,15 +285,11 @@ If N is approximately constant over the interval, then:
 
     a = dv/dt ~= (1/N) dE[q]/dt.
 
-Equivalently, force is directional exchange flux. Let:
+Equivalently, force is directional exchange flux. Let Phi_d be the incoming or
+effective exchange-carrier flux in primitive direction d. The net directional
+flux is:
 
-    Phi_R, Phi_L, Phi_U, Phi_D, Phi_F, Phi_B
-
-be the incoming or effective exchange-carrier fluxes in the six primitive
-directions. The net directional flux is:
-
-    Phi_vec =
-        (Phi_R - Phi_L, Phi_U - Phi_D, Phi_F - Phi_B).
+    Phi_vec = sum_d Phi_d e_d.
 
 If the interaction converts this flux into add/remove changes of q with
 efficiency eta, then:
@@ -358,14 +318,15 @@ is not balanced.
 To connect the statistical action to the classical action, one must recover a
 quadratic velocity term.
 
-The cleanest derivation begins in one dimension. At fixed total count N, let:
+The cleanest derivation begins with one opposite pair. At fixed total count N,
+let:
 
-    N_R = N/2 + k
-    N_L = N/2 - k.
+    N_+ = N/2 + k
+    N_- = N/2 - k.
 
 The directional imbalance is:
 
-    q = N_R - N_L = 2k.
+    q = N_+ - N_- = 2k.
 
 The normalized velocity is:
 
@@ -398,40 +359,30 @@ This is the important result:
 
     statistical cost of velocity imbalance ~= (1/2) N v^2.
 
-Strictly speaking, this is a state-counting result. To use it as a path-action
-term one must assume, or derive from the microscopic dynamics, that each
-coarse-grained time slice contributes this local multiplicity penalty to the
-history weight. Under that local-slice approximation:
-
-    -log Prob(path) ~= sum_t local velocity-imbalance cost.
-
-In the continuum notation this becomes an integral over time. Without this
-extra step, the calculation only proves that velocity-imbalanced states have
-lower multiplicity than balanced states.
+At this point the calculation is a state-counting result. Section 12.1 closes
+the state-to-path gap for an explicit free microscopic process: each coarse time
+slice contains a block of independent elementary direction choices. Because
+disjoint blocks are independent, their multinomial weights multiply exactly,
+and the state cost becomes an additive path cost. Persistent or correlated
+instruction dynamics require a separate extension and are not covered by that
+theorem.
 
 If inertial mass is proportional to N, then this has the same velocity
 dependence and the same 1/2 structure as kinetic energy:
 
     T = (1/2) m v^2.
 
-In three dimensions, the same idea is applied pairwise to the opposite
-directions:
+For several opposite pairs, the same expansion produces a quadratic form in the
+coarse velocity:
 
-    R/L, U/D, F/B.
+    -log[Omega(v)/Omega(0)] ~= (N/2) v^T K v.
 
-For small imbalances:
-
-    q = (N_R-N_L, N_U-N_D, N_F-N_B),
-    v = q/N,
-
-the total multiplicity penalty is quadratic in the vector velocity:
-
-    -log[Omega(v)/Omega(0)] ~= constant * N |v|^2.
-
-The exact coefficient depends on how the rest count is distributed among the
-three opposite pairs and on the velocity normalization. The essential point is
-not the coefficient. The essential point is that balanced rest mass gives a
-quadratic log-multiplicity penalty for directional motion.
+The positive matrix K depends on the primitive directions, their balanced
+occupation probabilities, and the velocity normalization. For a sufficiently
+symmetric basis, K is proportional to the identity and the cost reduces to a
+constant times N |v|^2. The essential point is not a particular basis or
+coefficient. It is that balanced rest content gives a quadratic
+log-multiplicity penalty for directional motion.
 
 
 8. Energy accounting versus action cost
@@ -445,11 +396,11 @@ Physical energy accounting in this model is count accounting:
 
 If a particle changes from:
 
-    R = N/2, L = N/2
+    N_+ = N/2, N_- = N/2
 
 to:
 
-    R = N/2 + k, L = N/2 - k,
+    N_+ = N/2 + k, N_- = N/2 - k,
 
 then the total count N is unchanged. In that simplified closed-count example,
 the total particle energy is unchanged by the redistribution. What changes is
@@ -479,7 +430,7 @@ from the multiplicity cost of moving away from balanced rest content.
 
 The previous section defined momentum-like imbalance:
 
-    q = (N_R-N_L, N_U-N_D, N_F-N_B)
+    q = sum_d N_d e_d
 
 and velocity:
 
@@ -552,24 +503,23 @@ For such fields:
 Only under this condition can the flux contribution be represented by a scalar
 potential V rather than by the full vector flux rule.
 
-For example, the gravity-bridge note proposes a radial inverse-square
-attractive flux of the form:
+According to Newtonian gravity, the force produced by a point source has the
+radial inverse-square form:
 
-    F(r) = -K r_hat/r^2.
+    F(r) = -G m M r_hat/r^2.
 
 This flux is conservative away from the source and corresponds to:
 
-    V(r) = -K/r.
+    V(r) = -G m M/r.
 
 By contrast, dissipative fluxes such as friction, or magnetic-like transverse
 effects, generally cannot be represented by a single scalar potential.
 
 The derivation of F is not universal. Each interaction must supply its own
 exchange-flux rule. Gravity, electromagnetism, friction, and magnetic-like
-effects correspond to different microscopic flux structures. In this division
-of work, the gravity-bridge note is responsible for the source-directed 1/r^2
-flux and local compensation assumptions; this least-action note only describes
-how a conservative flux enters an action-like path description.
+effects correspond to different microscopic flux structures. This note only
+describes how a given conservative flux enters an action-like path description;
+it does not derive the microscopic origin of that flux.
 
 
 11. Lagrangian-like form under an additional condition
@@ -622,13 +572,14 @@ a Lagrangian-like form:
 
 In the present notation, the corresponding schematic expression is:
 
-    S_eff[path] ~= integral [ (1/2)N |v|^2 - beta V(x) ] dt,
+    S_eff[path]
+        ~= integral [ (L/(2 tau)) v^T K v - beta V(x) ] dt,
 
 where beta is a conversion coefficient between statistical cost and physical
 units. The Euler-Lagrange equation for this expression gives:
 
-    N d^2x/dt^2 = - beta grad V
-                = beta F.
+    (L/tau) K d^2x/dt^2 = -beta grad V
+                         = beta F.
 
 Thus, once an interaction-specific conservative flux has been supplied, and
 once its exchange-history log-support has been shown to produce the potential
@@ -641,72 +592,141 @@ section states and proves sufficient bridge conditions rather than leaving this
 step as an unspecified identification.
 
 
-12. Two bridge lemmas
----------------------
+12. Free-history theorem and field lemma
+----------------------------------------
 
-12.1 Local-slice multiplicity lemma
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+12.1 Independent-block free-history theorem
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Let a coarse-grained path be divided into K slices of duration tau. Denote its
-coarse state in slice j by z_j, including its velocity imbalance v_j. Assume:
+Divide a coarse-grained path into J time slices of duration tau. In each slice
+j, let the microscopic free process execute L elementary direction choices:
 
-1. the microscopic process is local in time at this resolution;
-2. conditioned on the coarse boundary states, the microscopic choices inside
-   different slices factorize; and
-3. the number, or total base weight, of microscopic realizations of slice j is
-   Omega(z_j).
+    xi_(j,1), ..., xi_(j,L).
 
-Then the total weight of the coarse path is
+Each choice is sampled independently from a balanced base distribution rho_d
+over the primitive directions e_d. Define the coarse velocity in that slice by
 
-    Prob[path] proportional to product_{j=0}^{K-1} Omega(z_j).
+    v_j = (1/L) sum_(ell=1)^L e_[xi_(j,ell)].
 
-This is not an analogy. It follows directly from the multiplication rule for
-independent conditional weights. Taking a negative logarithm proves
+Choose coarse position units so that the corresponding path increment is
 
-    S_eff[path]
-        = -log Prob[path]
-        = constant + sum_j [-log Omega(z_j)].
+    x_(j+1) - x_j = tau v_j.
 
-For the balanced opposite-direction counts derived in Section 7,
+Thus specifying the sequence {v_j} specifies the piecewise-linear coarse path.
 
-    -log[Omega(v_j)/Omega(0)]
-        = (1/2) N |v_j|^2 + O(N |v_j|^4)
+Let n_(j,d) be the number of occurrences of direction d in slice j. For a fixed
+count vector, the exact probability of the slice is multinomial:
 
-in the one-dimensional normalization, for |v_j| much smaller than 1. Therefore
+    P_j({n_(j,d)})
+        = L! product_d [rho_d^(n_(j,d)) / n_(j,d)!],
+
+subject to
+
+    sum_d n_(j,d) = L,
+    sum_d n_(j,d) e_d = L v_j.
+
+Because every elementary choice is independent, choices belonging to disjoint
+slices are independent. Therefore the probability of a coarse path with slice
+velocities v_0,...,v_(K-1) is exactly
+
+    P[path] = product_j P_j(v_j),
+
+where P_j(v_j) denotes the sum of the multinomial weights of all count vectors
+compatible with v_j. Consequently,
+
+    S_eff[path] = -log P[path]
+                = sum_j [-log P_j(v_j)].
+
+Thus the path additivity is derived from the specified microscopic process; it
+is not an additional state-to-path assumption.
+
+For one balanced opposite pair, rho_+ = rho_- = 1/2, and the slice probability
+is exactly
+
+    P_L(v)
+        = 2^(-L) L! /
+          {[(L/2)(1+v)]! [(L/2)(1-v)]!}.
+
+Stirling expansion gives the large-deviation rate
+
+    -log[P_L(v)/P_L(0)]
+        = L I(v) + O(log L),
+
+where
+
+    I(v) = (1/2)[(1+v) log(1+v) + (1-v) log(1-v)]
+         = (1/2) v^2 + (1/12) v^4 + O(v^6).
+
+Therefore, for small coarse velocities,
 
     S_eff[path] - S_eff[rest]
-        = sum_j (1/2) N |v_j|^2
-          + sum_j O(N |v_j|^4).
+        = sum_j (L/2) v_j^2
+          + sum_j O(L v_j^4)
+          + O(J log L).
 
-Writing a sum as a Riemann integral gives
+For several direction pairs, the same multinomial expansion gives
 
-    sum_j (1/2) N |v_j|^2
-        = integral [(N/(2 tau)) |v(t)|^2] dt.
+    -log[P_L(v)/P_L(0)]
+        = (L/2) v^T K v + higher-order terms,
 
-The factor 1/tau converts dimensionless cost per slice into cost per unit time.
-It may be absorbed into the conversion between statistical and physical units.
-Thus the kinetic path cost is proved under the stated local-factorization
-hypothesis. Without that hypothesis, state multiplicity alone does not imply a
-path action.
+with a positive matrix K fixed by the balanced direction distribution. For an
+isotropic coarse limit, K is proportional to the identity.
 
-The normalizations used in the bridge are:
+Writing the leading sum as a Riemann integral gives
 
-    N:      dimensionless total instruction count of the particle;
-    q:      dimensionless direction-count imbalance;
-    v:      dimensionless coarse velocity, v = q/N;
-    tau:    physical duration of one coarse time slice;
-    beta:   conversion from field support units to statistical action units;
-    N/tau:  inertial coefficient in the statistical equation of motion;
-    m:      physical mass after choosing the count-to-mass/time conversion.
+    sum_j (L/2) v_j^T K v_j
+        = integral [(L/(2 tau)) v(t)^T K v(t)] dt.
 
-With these conventions, (1/2) N v^2 is a dimensionless per-slice statistical
-cost, while (N/(2 tau)) v^2 is the corresponding cost rate in the continuum
-notation. The measured kinetic energy requires an additional physical-unit
-conversion.
+Define the statistical inertial coefficient
+
+    M_stat = L/tau.
+
+This coefficient is not automatically equal to the dimensionless particle
+count N. The identification M_stat=N used in later compact examples is a choice
+of count/time normalization. It requires L/tau=N; choosing L=N is sufficient
+only in units where tau=1. In general, the relation among L, tau, N, and measured
+mass must be supplied by the physical count/time dictionary.
+
+For fixed endpoints and fixed duration, variation of the quadratic free
+functional gives
+
+    d/dt[(L/tau) K v] = 0.
+
+When K is constant and nonsingular, the most-supported free path therefore has
+constant velocity and is the straight macroscopic path between its endpoints.
+
+This theorem proves the free kinetic path cost for the stated independent
+microscopic process. It does not automatically cover persistent inventories,
+add/remove memory, correlations between slices, or state-dependent transition
+rates. Those cases require direct counting of compatible complete histories or
+a Markov/transfer-operator large-deviation calculation. They may reproduce the
+same quadratic limit, but that must be shown rather than assumed.
+
+The normalizations used here are:
+
+    L:       elementary direction choices per coarse time slice;
+    N:       dimensionless instruction count of the particle;
+    q:       dimensionless direction-count imbalance;
+    v:       dimensionless coarse velocity;
+    tau:     physical duration of one coarse time slice;
+    beta:    conversion from field support units to statistical action units;
+    L/tau:   inertial coefficient derived for the independent-block process;
+    M_stat:  shorthand for L/tau, not automatically equal to N;
+    m:       physical mass after choosing the count/time/unit conversion.
+
+The measured kinetic energy still requires a conversion from dimensionless
+negative-log probability to physical action units.
 
 
 12.2 Potential-support lemma
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Unlike the free theorem, the following lemma does not derive its microscopic
+input from generic add/remove dynamics. Its hypothesis places the desired
+potential directly in the exponential rate of local occupation support. The
+lemma is useful because it proves the resulting path term and fixes its sign,
+while making the field-specific missing step explicit: a concrete interaction
+must independently derive this support rate.
 
 Let A(x,Delta t) be the total multiplicative support supplied by local exchange
 events while a path occupies position x for a short interval Delta t. Assume
@@ -740,11 +760,11 @@ Taking the continuum limit proves
 
 Hence the required minus sign and the time integral of V are consequences of
 the stated microscopic support law; they are not inserted after the fact.
-Combining this result with the local-slice lemma gives
+Combining this result with the independent-block free-history theorem gives
 
     S_eff[path]
         = constant
-          + integral [(N/(2 tau)) |v|^2 - beta V(x)] dt
+          + integral [(L/(2 tau)) v^T K v - beta V(x)] dt
 
 to quadratic order in velocity.
 
@@ -756,10 +776,11 @@ then every smooth interior minimum of the statistical functional is stationary.
 On time intervals for which the corresponding classical extremal is a local
 minimum, the Euler-Lagrange equation gives
 
-    (N/tau) a = beta F.
+    (L/tau) K a = beta F.
 
-After defining physical mass by m = N/tau and defining the physical force as
-F_phys = beta F, this is
+For an isotropic normalization K=I, define M_stat=L/tau. After choosing a
+physical-unit conversion gamma, one may identify m=gamma M_stat and
+F_phys=gamma beta F. The equation then becomes
 
     m a = F_phys.
 
@@ -799,6 +820,10 @@ over intervals short enough to avoid saddle-path complications.
 
 The cleanest non-free example is a constant directional exchange flux.
 
+For compact notation, this example uses an isotropic normalization K=I, chooses
+L/tau=N, and absorbs beta into the physical definitions of F and V. Under this
+unit convention the derived kinetic coefficient is N.
+
 Suppose the net exchange flux produces a constant force-like term in one
 direction:
 
@@ -817,13 +842,15 @@ Then:
 
     -dV/dx = F.
 
-For constant force, the support law can be motivated without first assuming an
-arbitrary potential shape. A uniform directional exchange bias gives the same
-position-dependent support rate at every point. Moving the path endpoint by dx
-in the force direction changes the accumulated local support by a constant
-log-factor proportional to dx:
+To complete this example, impose the position-dependent occupation-support
+calibration required by Section 12.2:
 
     d log A / dx = -beta F Delta t.
+
+This equation does not follow from uniform directional bias alone. A uniform
+transition bias can produce drift or an endpoint/work weight, but the
+time-integrated potential term requires this additional occupation-support
+law.
 
 The sign can look counterintuitive. For positive F, this expression says that
 the local occupation support decreases as x increases in the force direction.
@@ -841,8 +868,9 @@ Since V(x) = -F x, this is:
 
     A(x,Delta t) = A_0(Delta t) exp[beta V(x) Delta t + o(Delta t)].
 
-Thus the constant-force case supplies a concrete realization of the
-potential-support lemma: constant exchange bias gives a linear potential.
+Thus this is the constant-force specialization of the assumed support law. It
+shows how a linear potential enters once that calibration holds; it does not
+derive the calibration from the exchange bias itself.
 
 Using this support law:
 
@@ -877,50 +905,40 @@ This is the minimal complete case:
     stationary effective action -> N a = F.
 
 
-14. Worked example: radial gravity-like flux
---------------------------------------------
+14. Worked example: Newtonian gravity
+-------------------------------------
 
-Gravity should enter this note only after a separate interaction model has
-supplied a mean conservative flux.
+According to Newtonian gravity, a test body in the field of a point source M
+has acceleration:
 
-The gravity-bridge note proposes such a first-approximation flux. In that
-picture:
+    a = -G M r_hat/r^2.
 
-    source traffic in 3D        -> event density proportional to M/r^2,
-    discrete direction coding   -> mean vector direction r_hat,
-    add/remove exchange drift   -> acceleration along the source direction,
-    local channel compensation  -> approximate cancellation of target count.
-
-If that separate bridge supplies the local Newtonian-looking acceleration:
-
-    a = -G_eff M r_hat/r^2,
-
-then the force on a target constituent of effective inertial count N is:
+The force on a target constituent of effective inertial count N is therefore:
 
     F(r) = N a
-         = -N G_eff M r_hat/r^2.
+         = -N G M r_hat/r^2.
 
 This field is conservative away from the source. Its potential is:
 
-    V(r) = -N G_eff M/r.
+    V(r) = -N G M/r.
 
 The Lagrangian-like expression is then:
 
     L = (1/2) N |v|^2 - V(r)
-      = (1/2) N |v|^2 + N G_eff M/r.
+      = (1/2) N |v|^2 + N G M/r.
 
 The Euler-Lagrange equation gives:
 
-    N a = -N G_eff M r_hat/r^2,
+    N a = -N G M r_hat/r^2,
 
 and therefore:
 
-    a = -G_eff M r_hat/r^2.
+    a = -G M r_hat/r^2.
 
-This example is deliberately formal. It shows how a conservative gravity-like
-flux would be represented once supplied. It does not derive the 1/r^2 source
-flux, the discrete direction rule, the add/remove drift coefficient, or the
-local compensation law. Those belong to the gravity-bridge paper.
+This example is deliberately formal. It takes the Newtonian inverse-square law
+as an input and shows how its conservative force and potential enter the
+effective action. It does not derive Newtonian gravity from the microscopic
+add/remove rules.
 
 
 15. Relation to classical least action
@@ -948,8 +966,12 @@ The connection to classical mechanics requires the following identifications:
 1. The log-multiplicity penalty for velocity imbalance supplies the kinetic
    term:
 
-       -log Omega(v) ~= (1/2) N |v|^2
+       -log P[path] ~= integral (L/(2 tau)) v^T K v dt
+                     ~= integral (1/2) N |v|^2 dt
                      ~= const * (1/2) m |v|^2.
+
+   The middle form uses the simplest isotropic identification K=I and
+   L/tau=N.
 
 2. Directional exchange flux supplies the force term:
 
@@ -1000,10 +1022,9 @@ Required for the discrete-direction physical realization:
 6. a physical dictionary from counts to momentum, velocity, and inertial
    content.
 
-The exact six-direction axial basis is not required for the abstract
-combinatorial theorem, but it is useful for physical interpretation because it
-makes direction counting finite, integer-valued, and compatible with ordinary
-three-dimensional Euclidean motion through direction proportions.
+No particular number, geometry, or arrangement of primitive directions is
+required for the abstract combinatorial theorem. A chosen basis is part of the
+physical interpretation, not part of the general counting result.
 
 External forces are not required for the abstract theorem or for the free
 Hamiltonian-like generator. They enter when one wants the effective action to
@@ -1022,21 +1043,20 @@ This note does not derive:
 3. quantum phases or the Feynman path integral;
 4. relativistic action;
 5. gauge fields;
-6. the inverse-square gravity-like source flux, which belongs to the separate
-   gravity-bridge model;
+6. the microscopic origin of the Newtonian inverse-square law;
 7. the detailed microscopic source of position-dependent exchange bias;
 8. the force/flux rules for all fields;
-9. the local compensation law required for target-independent gravity, which is
-   also part of the gravity-bridge model;
-10. that every physical interaction satisfies the local-slice factorization
-    hypothesis of Section 12.1;
+9. a microscopic explanation of target-independent free fall;
+10. that persistent, correlated, or state-dependent instruction dynamics have
+    the same path-rate functional as the independent process of Section 12.1;
 11. that a specified microscopic gravity, electromagnetic, or other field model
     satisfies the occupation-support law of Section 12.2.
 
-Items 10 and 11 are now precise model-verification obligations rather than
-missing algebraic steps. Section 12 proves what follows if their explicit
-hypotheses hold. What remains is to derive those hypotheses from the concrete
-add/remove rules of each proposed interaction.
+Items 10 and 11 are precise model-verification obligations rather than missing
+algebraic steps. Section 12.1 directly proves the free result for its specified
+independent process. What remains is to extend that result to correlated
+add/remove dynamics and to derive the field-support hypothesis from the
+concrete rules of each proposed interaction.
 
 It only derives the structure:
 
@@ -1045,7 +1065,7 @@ It only derives the structure:
     multiplicity penalty -> kinetic-like quadratic term,
     free Hamiltonian generator -> H_free = q^2/(2N),
     exchange flux -> force,
-    local factorization -> time-additive kinetic path cost,
+    independent block histories -> time-additive kinetic path cost,
     potential-support law -> potential term with the required sign,
     conservative exchange flux -> force from that potential.
 
@@ -1064,9 +1084,9 @@ This statement refers to support-maximizing regimes. Classical Hamilton's
 principle is more general: on long intervals it can select stationary saddle
 paths, not only probability maxima.
 
-In a six-direction discrete exchange model, a particle's motion state is encoded
-by integer counts of primitive momentum directions. Local interactions add or
-remove one quantum; they do not silently replace one direction with another.
+In a finite-direction discrete exchange model, a particle's motion state is
+encoded by integer counts of primitive momentum directions. Local interactions
+add or remove one quantum; they do not silently replace one direction with another.
 The normalized count imbalance gives velocity, while the imbalance itself gives
 momentum-like content.
 
