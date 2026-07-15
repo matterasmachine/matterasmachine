@@ -1,5 +1,5 @@
-Least-Action-Like Path Selection from Discrete Taxicab Exchange Histories
-=========================================================================
+Least-Action-Like Path Selection from Discrete Exchange Histories
+=================================================================
 
 Abstract
 --------
@@ -12,13 +12,14 @@ its probability or multiplicity. In regimes where the relevant classical
 extremal is support-maximizing, the most probable macroscopic path is then the
 path of least effective action.
 
-The second layer gives a physical realization in a six-direction taxicab
-instruction space. A particle is represented by integer counts of momentum
-quanta in the six primitive directions R, L, U, D, F, and B. Interactions are
-local one-quantum add/remove exchanges. Silent replacement of one quantum by
-another is not allowed. In this realization, velocity is the normalized
-direction-count imbalance, momentum is the direction-count imbalance itself,
-and force is the rate at which biased exchanges change that imbalance.
+The second layer gives a physical realization using a finite six-direction
+instruction basis. A particle is represented by integer counts of momentum
+quanta along the three pairs of opposite axial directions R, L, U, D, F, and B.
+Interactions are local one-quantum add/remove exchanges. Silent replacement of
+one quantum by another is not allowed. In this realization, velocity is the
+normalized direction-count imbalance, momentum is the direction-count
+imbalance itself, and force is the rate at which biased exchanges change that
+imbalance.
 
 The note does not claim to derive all of classical mechanics or all possible
 fields. It derives a statistical action
@@ -108,9 +109,9 @@ define:
     force,
     or potential.
 
-Those quantities require a physical dictionary. The role of the taxicab
-realization below is to supply such a dictionary while keeping the microscopic
-event rule discrete and countable.
+Those quantities require a physical dictionary. The role of the discrete
+direction realization below is to supply such a dictionary while keeping the
+microscopic event rule discrete and countable.
 
 The analogy with equilibrium statistical mechanics is useful. First one defines
 entropy as a counting quantity:
@@ -126,8 +127,8 @@ Only after direction counts, momentum quanta, and exchange rules are introduced
 does it become a candidate physical action.
 
 
-3. Six-direction taxicab state space
-------------------------------------
+3. Finite six-direction state space
+-----------------------------------
 
 The physical realization uses six primitive momentum directions:
 
@@ -187,8 +188,8 @@ This distinction will be used below to separate physical energy accounting from
 statistical action cost.
 
 
-4. Euclidean direction from taxicab proportions
------------------------------------------------
+4. Euclidean direction from discrete axial proportions
+-------------------------------------------------------
 
 For a requested unit Euclidean direction:
 
@@ -198,7 +199,7 @@ with:
 
     u_x^2 + u_y^2 + u_z^2 = 1,
 
-one finite taxicab realization is given by the proportions:
+one finite six-direction realization is given by the proportions:
 
     p_R = (1 + u_x) / 6
     p_L = (1 - u_x) / 6
@@ -228,7 +229,7 @@ This section is not required for the abstract combinatorial theorem. It is
 required to show that a six-direction integer count model can approximate
 ordinary three-dimensional Euclidean motion.
 
-This is a direction-only construction at fixed taxicab speed. It should not be
+This is a direction-only construction at a fixed encoded speed. It should not be
 confused with the more general velocity-imbalance dictionary:
 
     v = q/N.
@@ -886,7 +887,7 @@ The gravity-bridge note proposes such a first-approximation flux. In that
 picture:
 
     source traffic in 3D        -> event density proportional to M/r^2,
-    taxicab direction coding    -> mean vector direction r_hat,
+    discrete direction coding   -> mean vector direction r_hat,
     add/remove exchange drift   -> acceleration along the source direction,
     local channel compensation  -> approximate cancellation of target count.
 
@@ -918,7 +919,7 @@ and therefore:
 
 This example is deliberately formal. It shows how a conservative gravity-like
 flux would be represented once supplied. It does not derive the 1/r^2 source
-flux, the taxicab direction rule, the add/remove drift coefficient, or the
+flux, the discrete direction rule, the add/remove drift coefficient, or the
 local compensation law. Those belong to the gravity-bridge paper.
 
 
@@ -989,7 +990,7 @@ Required for the combinatorial action layer:
 3. probabilities or weights of histories;
 4. definition S_eff = -log Prob(path).
 
-Required for the taxicab physical realization:
+Required for the discrete-direction physical realization:
 
 1. a finite discrete direction basis;
 2. nonnegative integer counts in each direction;
@@ -999,7 +1000,7 @@ Required for the taxicab physical realization:
 6. a physical dictionary from counts to momentum, velocity, and inertial
    content.
 
-The exact six-direction taxicab basis is not required for the abstract
+The exact six-direction axial basis is not required for the abstract
 combinatorial theorem, but it is useful for physical interpretation because it
 makes direction counting finite, integer-valued, and compatible with ordinary
 three-dimensional Euclidean motion through direction proportions.
@@ -1063,7 +1064,7 @@ This statement refers to support-maximizing regimes. Classical Hamilton's
 principle is more general: on long intervals it can select stationary saddle
 paths, not only probability maxima.
 
-In a six-direction taxicab exchange model, a particle's motion state is encoded
+In a six-direction discrete exchange model, a particle's motion state is encoded
 by integer counts of primitive momentum directions. Local interactions add or
 remove one quantum; they do not silently replace one direction with another.
 The normalized count imbalance gives velocity, while the imbalance itself gives
