@@ -1,0 +1,1096 @@
+Least-Action-Like Path Selection from Discrete Taxicab Exchange Histories
+=========================================================================
+
+Abstract
+--------
+
+This note describes a possible microscopic interpretation of local
+least-action-like path selection. The first layer is purely combinatorial: a
+macroscopic path is treated as a coarse-grained class of microscopic histories,
+and the effective action of that path is defined as the negative logarithm of
+its probability or multiplicity. In regimes where the relevant classical
+extremal is support-maximizing, the most probable macroscopic path is then the
+path of least effective action.
+
+The second layer gives a physical realization in a six-direction taxicab
+instruction space. A particle is represented by integer counts of momentum
+quanta in the six primitive directions R, L, U, D, F, and B. Interactions are
+local one-quantum add/remove exchanges. Silent replacement of one quantum by
+another is not allowed. In this realization, velocity is the normalized
+direction-count imbalance, momentum is the direction-count imbalance itself,
+and force is the rate at which biased exchanges change that imbalance.
+
+The note does not claim to derive all of classical mechanics or all possible
+fields. It derives a statistical action
+
+    S_eff[path] = -log P[path],
+
+then shows how the free Hamiltonian-like generator
+
+    H_free(q) = q^2/(2N)
+
+follows from the count-velocity relation in the simplest normalization. The
+exact numerical coefficient of the multinomial counting penalty depends on the
+chosen rest distribution and velocity normalization.
+
+Finally, the note proves two bridge lemmas. The first converts local state
+multiplicity into a path cost when coarse-grained history weights factorize in
+time. The second gives a sufficient microscopic support law under which a
+position-dependent exchange process produces the classical potential term with
+the required sign. These are conditional theorems: their conclusions follow
+from explicit hypotheses, but a concrete interaction must still be shown to
+satisfy those hypotheses. The force/flux itself remains interaction-specific
+and must be derived separately for each field.
+
+The most important verification burdens are therefore visible from the start:
+state multiplicity must become a per-time-slice path weight, and a concrete
+field model must prove the potential-support law used for its position term.
+
+
+1. The combinatorial layer
+--------------------------
+
+Consider a system with microscopic histories h and macroscopic paths P. A
+macroscopic path is not one microscopic history. It is a coarse-grained class of
+many microscopic histories:
+
+    H(P) = { h : h is compatible with P }.
+
+If all microscopic histories have equal base weight, then the probability of P
+is proportional to its multiplicity:
+
+    Prob(P) proportional to Omega(P),
+
+where:
+
+    Omega(P) = |H(P)|.
+
+More generally, if microscopic histories have weights w(h), then:
+
+    Prob(P) = sum_{h in H(P)} w(h).
+
+Define the effective statistical action:
+
+    S_eff(P) = -log Prob(P).
+
+If histories are equally weighted, this becomes:
+
+    S_eff(P) = -log Omega(P) + constant.
+
+Therefore:
+
+    most probable path = argmax Prob(P)
+                       = argmin S_eff(P).
+
+This is the minimal-action-like statement at the purely combinatorial level.
+Nothing in this layer requires energy, force, mass, or even space. It only
+requires microscopic histories, macroscopic coarse-graining, and path
+probabilities.
+
+This is not the textbook derivation of Hamilton's principle. It is the
+statistical template behind a possible microscopic interpretation:
+
+    action is the negative log support of a macroscopic path in microscopic
+    history space.
+
+
+2. Why this is not yet physics
+------------------------------
+
+The combinatorial layer alone does not know what a particle is. It does not
+define:
+
+    position,
+    velocity,
+    momentum,
+    mass,
+    energy,
+    force,
+    or potential.
+
+Those quantities require a physical dictionary. The role of the taxicab
+realization below is to supply such a dictionary while keeping the microscopic
+event rule discrete and countable.
+
+The analogy with equilibrium statistical mechanics is useful. First one defines
+entropy as a counting quantity:
+
+    S_entropy = log Omega.
+
+Only after energy and reservoirs are introduced does this become thermodynamics.
+Similarly, here one first defines an action-like cost:
+
+    S_eff = -log Prob(path).
+
+Only after direction counts, momentum quanta, and exchange rules are introduced
+does it become a candidate physical action.
+
+
+3. Six-direction taxicab state space
+------------------------------------
+
+The physical realization uses six primitive momentum directions:
+
+    R, L, U, D, F, B.
+
+These correspond to the positive and negative directions of three spatial axes.
+A particle state is represented by six nonnegative integer counts:
+
+    N_R, N_L, N_U, N_D, N_F, N_B.
+
+The total count is:
+
+    N = N_R + N_L + N_U + N_D + N_F + N_B.
+
+If each quantum carries a fixed elementary energy epsilon, then:
+
+    E = epsilon N.
+
+Thus total energy accounting is total count accounting.
+
+The directional imbalance is:
+
+    q = (N_R - N_L, N_U - N_D, N_F - N_B).
+
+The coarse velocity is defined as:
+
+    v = q / N.
+
+In this dictionary:
+
+    total count N          = energy / inertial content,
+    balanced directions    = rest-like content,
+    directional imbalance  = momentum-like content,
+    imbalance over count   = velocity.
+
+This separates energy from motion. Two particles may have the same total count
+N but different velocities because their direction counts have different
+imbalances.
+
+Rest mass is therefore not interpreted as the absence of momentum quanta. It is
+interpreted as balanced momentum content. In one dimension, a rest-like state is:
+
+    N_R = N/2
+    N_L = N/2.
+
+A moving state with the same total count is:
+
+    N_R = N/2 + k
+    N_L = N/2 - k.
+
+The total count, and therefore the energy accounting in this simplified
+picture, is unchanged. What changed is the imbalance:
+
+    q = N_R - N_L = 2k.
+
+This distinction will be used below to separate physical energy accounting from
+statistical action cost.
+
+
+4. Euclidean direction from taxicab proportions
+-----------------------------------------------
+
+For a requested unit Euclidean direction:
+
+    u = (u_x, u_y, u_z),
+
+with:
+
+    u_x^2 + u_y^2 + u_z^2 = 1,
+
+one finite taxicab realization is given by the proportions:
+
+    p_R = (1 + u_x) / 6
+    p_L = (1 - u_x) / 6
+    p_U = (1 + u_y) / 6
+    p_D = (1 - u_y) / 6
+    p_F = (1 + u_z) / 6
+    p_B = (1 - u_z) / 6.
+
+Then:
+
+    p_R - p_L = u_x / 3
+    p_U - p_D = u_y / 3
+    p_F - p_B = u_z / 3.
+
+Therefore, after averaging over a complete instruction list:
+
+    v = u / 3.
+
+The speed is:
+
+    |v| = 1/3,
+
+independent of direction in the large-N limit. Finite lists introduce rounding
+error, which vanishes as N grows.
+
+This section is not required for the abstract combinatorial theorem. It is
+required to show that a six-direction integer count model can approximate
+ordinary three-dimensional Euclidean motion.
+
+This is a direction-only construction at fixed taxicab speed. It should not be
+confused with the more general velocity-imbalance dictionary:
+
+    v = q/N.
+
+The direction construction chooses proportions whose net speed is |v|=1/3 for
+unit Euclidean directions. The general imbalance dictionary allows different
+speed magnitudes, bounded only by the finite direction counts.
+
+
+5. Exchange invariant
+---------------------
+
+The microscopic interaction rule is an add/remove exchange rule.
+
+Allowed events:
+
+    add(d):    N_d -> N_d + 1, N -> N + 1
+    remove(d): N_d -> N_d - 1, N -> N - 1
+
+for one direction d in:
+
+    {R, L, U, D, F, B}.
+
+Silent replacement is not allowed:
+
+    replace(d1 -> d2) is forbidden as one event.
+
+If a model needs replacement-like behavior, it must be represented as two
+exchange events:
+
+    remove(d1), then add(d2).
+
+This matters because replacement would let the direction state change without
+the energy/count accounting that gives the path its statistical cost.
+
+In a closed system, one particle's removal may be another particle's addition,
+or a carrier may transport the removed quantum. The total count of the closed
+particle-plus-carrier system is conserved:
+
+    N_total = constant.
+
+In an open subsystem, a particle's N may change because it exchanges quanta with
+carriers, sources, or surrounding matter.
+
+
+6. Momentum, force, and directional exchange flux
+-------------------------------------------------
+
+The direction-count imbalance:
+
+    q = (N_R - N_L, N_U - N_D, N_F - N_B)
+
+plays the role of momentum up to a fixed scale. If one quantum carries momentum
+unit p0, then:
+
+    p = p0 q.
+
+Since:
+
+    v = q/N,
+
+and mass/inertial content is proportional to N, this reproduces the structural
+relation:
+
+    p proportional to m v.
+
+Now let lambda_d^+ be the add rate for direction d, and lambda_d^- the remove
+rate for direction d. Then:
+
+    d E[N_d] / dt = lambda_d^+ - lambda_d^-.
+
+For the x component:
+
+    d E[q_x] / dt =
+        (lambda_R^+ - lambda_R^-)
+      - (lambda_L^+ - lambda_L^-).
+
+Similarly for y and z. In vector form:
+
+    d E[q] / dt = sum_d e_d (lambda_d^+ - lambda_d^-),
+
+where e_d is the primitive direction vector.
+
+Thus force can be interpreted as the rate of biased momentum exchange:
+
+    F proportional to dE[q]/dt.
+
+If N is approximately constant over the interval, then:
+
+    a = dv/dt ~= (1/N) dE[q]/dt.
+
+Equivalently, force is directional exchange flux. Let:
+
+    Phi_R, Phi_L, Phi_U, Phi_D, Phi_F, Phi_B
+
+be the incoming or effective exchange-carrier fluxes in the six primitive
+directions. The net directional flux is:
+
+    Phi_vec =
+        (Phi_R - Phi_L, Phi_U - Phi_D, Phi_F - Phi_B).
+
+If the interaction converts this flux into add/remove changes of q with
+efficiency eta, then:
+
+    dE[q]/dt = eta Phi_vec.
+
+If p = p0 q, then:
+
+    F = dp/dt = p0 eta Phi_vec.
+
+Therefore:
+
+    force = biased exchange rate,
+    force = directional exchange traffic,
+    acceleration = normalized change of direction-count imbalance.
+
+This section supplies the physical meaning of "external influence" in the
+statistical path framework. A force is not a primitive command. It is the
+macroscopic name for a flux of exchange carriers whose direction distribution
+is not balanced.
+
+
+7. Kinetic-like cost from balanced opposite directions
+-----------------------------------------------------
+
+To connect the statistical action to the classical action, one must recover a
+quadratic velocity term.
+
+The cleanest derivation begins in one dimension. At fixed total count N, let:
+
+    N_R = N/2 + k
+    N_L = N/2 - k.
+
+The directional imbalance is:
+
+    q = N_R - N_L = 2k.
+
+The normalized velocity is:
+
+    v = q/N = 2k/N.
+
+The number of assignments with imbalance k is binomial:
+
+    Omega(k) = N! / [(N/2+k)! (N/2-k)!].
+
+This is maximal at k=0, the balanced rest-like state. Using Stirling expansion
+for k much smaller than N:
+
+    log Omega(k) ~= log Omega(0) - 2k^2/N.
+
+Therefore the multiplicity loss, or statistical cost, is:
+
+    -log[Omega(k)/Omega(0)] ~= 2k^2/N.
+
+Substitute:
+
+    k = vN/2.
+
+Then:
+
+    -log[Omega(v)/Omega(0)]
+        ~= 2/N * (v^2 N^2 / 4)
+        = (1/2) N v^2.
+
+This is the important result:
+
+    statistical cost of velocity imbalance ~= (1/2) N v^2.
+
+Strictly speaking, this is a state-counting result. To use it as a path-action
+term one must assume, or derive from the microscopic dynamics, that each
+coarse-grained time slice contributes this local multiplicity penalty to the
+history weight. Under that local-slice approximation:
+
+    -log Prob(path) ~= sum_t local velocity-imbalance cost.
+
+In the continuum notation this becomes an integral over time. Without this
+extra step, the calculation only proves that velocity-imbalanced states have
+lower multiplicity than balanced states.
+
+If inertial mass is proportional to N, then this has the same velocity
+dependence and the same 1/2 structure as kinetic energy:
+
+    T = (1/2) m v^2.
+
+In three dimensions, the same idea is applied pairwise to the opposite
+directions:
+
+    R/L, U/D, F/B.
+
+For small imbalances:
+
+    q = (N_R-N_L, N_U-N_D, N_F-N_B),
+    v = q/N,
+
+the total multiplicity penalty is quadratic in the vector velocity:
+
+    -log[Omega(v)/Omega(0)] ~= constant * N |v|^2.
+
+The exact coefficient depends on how the rest count is distributed among the
+three opposite pairs and on the velocity normalization. The essential point is
+not the coefficient. The essential point is that balanced rest mass gives a
+quadratic log-multiplicity penalty for directional motion.
+
+
+8. Energy accounting versus action cost
+---------------------------------------
+
+The statistical cost above is not physical energy by itself.
+
+Physical energy accounting in this model is count accounting:
+
+    E = epsilon N.
+
+If a particle changes from:
+
+    R = N/2, L = N/2
+
+to:
+
+    R = N/2 + k, L = N/2 - k,
+
+then the total count N is unchanged. In that simplified closed-count example,
+the total particle energy is unchanged by the redistribution. What changes is
+the number of microscopic ways to realize the state. The moving state has lower
+multiplicity than the balanced state.
+
+Therefore there are two different quantities:
+
+    physical energy/count       = epsilon N,
+    statistical action cost     = -log Omega(path or state).
+
+The bridge to kinetic energy is an interpretation: if inertial mass is
+proportional to N, then the multiplicity penalty for directional imbalance has
+the same quadratic form as kinetic energy. A complete physical model must still
+specify how this statistical cost maps to measured energy units.
+
+This distinction is important. The paper does not claim that:
+
+    kinetic energy is literally -log Omega
+
+without a conversion factor. It claims that the quadratic kinetic form can arise
+from the multiplicity cost of moving away from balanced rest content.
+
+
+9. Free Hamiltonian-like generator
+----------------------------------
+
+The previous section defined momentum-like imbalance:
+
+    q = (N_R-N_L, N_U-N_D, N_F-N_B)
+
+and velocity:
+
+    v = dx/dt = q/N.
+
+For a free particle with fixed N and no directional exchange flux:
+
+    dq/dt = 0.
+
+One may now ask whether there is a canonical-form-compatible generator
+H_free(q) whose first canonical-form equation gives the count-velocity
+relation:
+
+    dx/dt = partial H_free / partial q.
+
+Requiring:
+
+    partial H_free / partial q = q/N
+
+gives, by integration:
+
+    H_free(q) = q^2/(2N) + constant.
+
+Thus a free generator compatible with the canonical-form equation follows from
+the count-velocity relation alone:
+
+    H_free(q) = q^2/(2N).
+
+Here H_free is a canonical-form-compatible generator, or statistical
+kinetic-cost object, in the counting normalization. This does not by itself
+derive the full symplectic structure of Hamiltonian mechanics. It is also not
+yet the measured physical kinetic energy. To identify it with physical energy
+one must supply the conversion between instruction count, momentum units, time
+units, and ordinary energy units.
+
+If physical momentum and mass are:
+
+    p = p0 q,
+    m proportional to N,
+
+then this has the same structure as the ordinary kinetic Hamiltonian:
+
+    H_free proportional to p^2/(2m).
+
+This derivation does not require a force field. It is the generator of free
+motion:
+
+    dx/dt = q/N,
+    dq/dt = 0.
+
+
+10. Conservative flux and potential
+-----------------------------------
+
+The free generator does not describe a particle whose momentum changes. Momentum
+changes require directional exchange flux:
+
+    dq/dt proportional to F(x,t).
+
+In this model, F is primary as a flux imbalance. A scalar potential exists only
+when that force-like flux is conservative. Mathematically, this means:
+
+    F = -grad V.
+
+Equivalently, the line integral of F between two points is path-independent.
+For such fields:
+
+    integral F . dx = -Delta V.
+
+Only under this condition can the flux contribution be represented by a scalar
+potential V rather than by the full vector flux rule.
+
+For example, the gravity-bridge note proposes a radial inverse-square
+attractive flux of the form:
+
+    F(r) = -K r_hat/r^2.
+
+This flux is conservative away from the source and corresponds to:
+
+    V(r) = -K/r.
+
+By contrast, dissipative fluxes such as friction, or magnetic-like transverse
+effects, generally cannot be represented by a single scalar potential.
+
+The derivation of F is not universal. Each interaction must supply its own
+exchange-flux rule. Gravity, electromagnetism, friction, and magnetic-like
+effects correspond to different microscopic flux structures. In this division
+of work, the gravity-bridge note is responsible for the source-directed 1/r^2
+flux and local compensation assumptions; this least-action note only describes
+how a conservative flux enters an action-like path description.
+
+
+11. Lagrangian-like form under an additional condition
+-----------------------------------------------------
+
+The free-counting term gives a kinetic-like cost. A force or field requires a
+position-dependent bias in exchange histories.
+
+Suppose that, at position x, the microscopic exchange rules assign an additional
+local weight:
+
+    W(x, event).
+
+Then a history h has probability weight:
+
+    Prob(h) proportional to product_t W(x_t, event_t)
+
+times its unbiased counting weight.
+
+Taking negative logs gives:
+
+    -log Prob(h) = counting cost - sum_t log W(x_t, event_t).
+
+After coarse-graining, the second term can produce a flux-support contribution
+to the effective path action:
+
+    S_eff[path]
+        = internal statistical cost - log(flux support).
+
+If the flux is conservative:
+
+    F = -grad V,
+
+then classical mechanics permits a scalar potential description of the force.
+However, this condition alone is not enough to derive the potential term from
+microscopic probabilities. One must also show that the coarse-grained
+log-support of exchange histories has the corresponding spatial dependence and
+sign.
+
+Therefore the following relation is a condition to be verified from the
+microscopic rule, not a consequence of conservativity alone:
+
+    -log(flux support) -> - beta V(x).
+
+Section 12.2 proves that a precise local support-rate condition is sufficient
+for this relation. Under that condition, the effective action can be written in
+a Lagrangian-like form:
+
+    S = integral (T - V) dt.
+
+In the present notation, the corresponding schematic expression is:
+
+    S_eff[path] ~= integral [ (1/2)N |v|^2 - beta V(x) ] dt,
+
+where beta is a conversion coefficient between statistical cost and physical
+units. The Euler-Lagrange equation for this expression gives:
+
+    N d^2x/dt^2 = - beta grad V
+                = beta F.
+
+Thus, once an interaction-specific conservative flux has been supplied, and
+once its exchange-history log-support has been shown to produce the potential
+term with the required sign, the statistical kinetic term and the flux-derived
+potential combine into the usual force law form.
+
+Potential energy is therefore not fundamental in this model. It is a compact
+macroscopic description of conservative directional exchange flux. The next
+section states and proves sufficient bridge conditions rather than leaving this
+step as an unspecified identification.
+
+
+12. Two bridge lemmas
+---------------------
+
+12.1 Local-slice multiplicity lemma
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Let a coarse-grained path be divided into K slices of duration tau. Denote its
+coarse state in slice j by z_j, including its velocity imbalance v_j. Assume:
+
+1. the microscopic process is local in time at this resolution;
+2. conditioned on the coarse boundary states, the microscopic choices inside
+   different slices factorize; and
+3. the number, or total base weight, of microscopic realizations of slice j is
+   Omega(z_j).
+
+Then the total weight of the coarse path is
+
+    Prob[path] proportional to product_{j=0}^{K-1} Omega(z_j).
+
+This is not an analogy. It follows directly from the multiplication rule for
+independent conditional weights. Taking a negative logarithm proves
+
+    S_eff[path]
+        = -log Prob[path]
+        = constant + sum_j [-log Omega(z_j)].
+
+For the balanced opposite-direction counts derived in Section 7,
+
+    -log[Omega(v_j)/Omega(0)]
+        = (1/2) N |v_j|^2 + O(N |v_j|^4)
+
+in the one-dimensional normalization, for |v_j| much smaller than 1. Therefore
+
+    S_eff[path] - S_eff[rest]
+        = sum_j (1/2) N |v_j|^2
+          + sum_j O(N |v_j|^4).
+
+Writing a sum as a Riemann integral gives
+
+    sum_j (1/2) N |v_j|^2
+        = integral [(N/(2 tau)) |v(t)|^2] dt.
+
+The factor 1/tau converts dimensionless cost per slice into cost per unit time.
+It may be absorbed into the conversion between statistical and physical units.
+Thus the kinetic path cost is proved under the stated local-factorization
+hypothesis. Without that hypothesis, state multiplicity alone does not imply a
+path action.
+
+The normalizations used in the bridge are:
+
+    N:      dimensionless total instruction count of the particle;
+    q:      dimensionless direction-count imbalance;
+    v:      dimensionless coarse velocity, v = q/N;
+    tau:    physical duration of one coarse time slice;
+    beta:   conversion from field support units to statistical action units;
+    N/tau:  inertial coefficient in the statistical equation of motion;
+    m:      physical mass after choosing the count-to-mass/time conversion.
+
+With these conventions, (1/2) N v^2 is a dimensionless per-slice statistical
+cost, while (N/(2 tau)) v^2 is the corresponding cost rate in the continuum
+notation. The measured kinetic energy requires an additional physical-unit
+conversion.
+
+
+12.2 Potential-support lemma
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Let A(x,Delta t) be the total multiplicative support supplied by local exchange
+events while a path occupies position x for a short interval Delta t. Assume
+that, after summing over the allowed add/remove events in that interval, its
+position-dependent part satisfies
+
+    A(x,Delta t) = A_0(Delta t)
+                   exp[beta V(x) Delta t + o(Delta t)].
+
+Equivalently,
+
+    lim_{Delta t -> 0}
+        {log A(x,Delta t) - log A_0(Delta t)}/Delta t
+        = beta V(x).
+
+For a path sampled at positions x_j, locality gives
+
+    A[path] = product_j A(x_j,Delta t).
+
+Therefore
+
+    -log A[path]
+        = position-independent constant
+          - beta sum_j V(x_j) Delta t
+          + sum_j o(Delta t).
+
+Taking the continuum limit proves
+
+    -log A[path]
+        = constant - beta integral V(x(t)) dt.
+
+Hence the required minus sign and the time integral of V are consequences of
+the stated microscopic support law; they are not inserted after the fact.
+Combining this result with the local-slice lemma gives
+
+    S_eff[path]
+        = constant
+          + integral [(N/(2 tau)) |v|^2 - beta V(x)] dt
+
+to quadratic order in velocity.
+
+If the macroscopic directional exchange flux is conservative,
+
+    F = -grad V,
+
+then every smooth interior minimum of the statistical functional is stationary.
+On time intervals for which the corresponding classical extremal is a local
+minimum, the Euler-Lagrange equation gives
+
+    (N/tau) a = beta F.
+
+After defining physical mass by m = N/tau and defining the physical force as
+F_phys = beta F, this is
+
+    m a = F_phys.
+
+The lemma is a sufficient-condition theorem, not a claim that every add/remove
+process automatically has this support law. This is the main field-specific
+verification burden of the paper. A microscopic model of a concrete field must
+calculate A(x,Delta t) and verify its exponential rate; otherwise the potential
+term has merely been assumed at the support/probability level. In this sense,
+the potential-support law is almost the potential term itself written in
+exponential microscopic-support form. The useful content of the lemma is not
+that it magically derives V; it states exactly what a field model must verify
+for V to enter the statistical action. Directional local detailed balance,
+
+    log[W(x -> x+dx)/W(x+dx -> x)]
+        = beta F(x) . dx
+        = -beta [V(x+dx)-V(x)] + o(|dx|),
+
+is enough to identify the conservative drift and its potential difference, but
+by itself it produces an endpoint ratio. The occupation-support condition above
+is the additional condition that produces the classical time integral
+integral V dt.
+
+The restriction to a local minimum matters. A positive probability cost always
+selects minima, whereas Hamilton's principle more generally selects stationary
+paths, which may become saddles on long intervals. The lemma therefore proves
+the local least-action bridge; it does not turn an arbitrary classical saddle
+into a probability maximum.
+
+From this point onward, the worked examples use the stationary Euler-Lagrange
+equation of the effective functional. The probability interpretation justifies
+that stationary path as a most-supported path only in local-minimum regimes and
+over intervals short enough to avoid saddle-path complications.
+
+
+13. Worked example: constant force
+----------------------------------
+
+The cleanest non-free example is a constant directional exchange flux.
+
+Suppose the net exchange flux produces a constant force-like term in one
+direction:
+
+    F = constant.
+
+In one dimension this is automatically conservative, because it can be written
+as:
+
+    F = -dV/dx.
+
+Choose:
+
+    V(x) = -F x.
+
+Then:
+
+    -dV/dx = F.
+
+For constant force, the support law can be motivated without first assuming an
+arbitrary potential shape. A uniform directional exchange bias gives the same
+position-dependent support rate at every point. Moving the path endpoint by dx
+in the force direction changes the accumulated local support by a constant
+log-factor proportional to dx:
+
+    d log A / dx = -beta F Delta t.
+
+The sign can look counterintuitive. For positive F, this expression says that
+the local occupation support decreases as x increases in the force direction.
+That is acceptable here because A(x,Delta t) is not a rule saying "more local
+support where the particle is pushed." It is the occupation-support factor that
+produces the potential contribution to a stationary path functional. With the
+negative-log convention, this sign is exactly what gives the Lagrangian term
+-V(x) = +F x and therefore the equation N a = F.
+
+Integrating over position gives:
+
+    log A(x,Delta t) = log A_0(Delta t) - beta F x Delta t + o(Delta t).
+
+Since V(x) = -F x, this is:
+
+    A(x,Delta t) = A_0(Delta t) exp[beta V(x) Delta t + o(Delta t)].
+
+Thus the constant-force case supplies a concrete realization of the
+potential-support lemma: constant exchange bias gives a linear potential.
+
+Using this support law:
+
+    -log(flux support) -> - beta V(x),
+
+then the Lagrangian-like expression becomes:
+
+    L = (1/2) N v^2 - V(x)
+      = (1/2) N v^2 + F x.
+
+The Euler-Lagrange equation gives:
+
+    d/dt (partial L / partial v) = partial L / partial x,
+
+so:
+
+    d/dt (N v) = F,
+
+or:
+
+    N a = F.
+
+Thus a constant biased exchange flux reproduces the usual constant-acceleration
+law once the statistical kinetic term has been identified and the
+flux-support-to-potential calibration has been supplied.
+
+This is the minimal complete case:
+
+    discrete histories -> kinetic statistical cost,
+    constant directional flux -> constant force,
+    conservative flux plus the support lemma -> linear potential,
+    stationary effective action -> N a = F.
+
+
+14. Worked example: radial gravity-like flux
+--------------------------------------------
+
+Gravity should enter this note only after a separate interaction model has
+supplied a mean conservative flux.
+
+The gravity-bridge note proposes such a first-approximation flux. In that
+picture:
+
+    source traffic in 3D        -> event density proportional to M/r^2,
+    taxicab direction coding    -> mean vector direction r_hat,
+    add/remove exchange drift   -> acceleration along the source direction,
+    local channel compensation  -> approximate cancellation of target count.
+
+If that separate bridge supplies the local Newtonian-looking acceleration:
+
+    a = -G_eff M r_hat/r^2,
+
+then the force on a target constituent of effective inertial count N is:
+
+    F(r) = N a
+         = -N G_eff M r_hat/r^2.
+
+This field is conservative away from the source. Its potential is:
+
+    V(r) = -N G_eff M/r.
+
+The Lagrangian-like expression is then:
+
+    L = (1/2) N |v|^2 - V(r)
+      = (1/2) N |v|^2 + N G_eff M/r.
+
+The Euler-Lagrange equation gives:
+
+    N a = -N G_eff M r_hat/r^2,
+
+and therefore:
+
+    a = -G_eff M r_hat/r^2.
+
+This example is deliberately formal. It shows how a conservative gravity-like
+flux would be represented once supplied. It does not derive the 1/r^2 source
+flux, the taxicab direction rule, the add/remove drift coefficient, or the
+local compensation law. Those belong to the gravity-bridge paper.
+
+
+15. Relation to classical least action
+-------------------------------------
+
+Classical mechanics usually introduces the action:
+
+    S_cl[path] = integral L dt,
+
+with:
+
+    L = T - V,
+
+and then requires:
+
+    delta S_cl = 0.
+
+This paper does not start by postulating that functional. It starts from path
+probabilities:
+
+    S_eff[path] = -log Prob(path).
+
+The connection to classical mechanics requires the following identifications:
+
+1. The log-multiplicity penalty for velocity imbalance supplies the kinetic
+   term:
+
+       -log Omega(v) ~= (1/2) N |v|^2
+                     ~= const * (1/2) m |v|^2.
+
+2. Directional exchange flux supplies the force term:
+
+       F = dp/dt.
+
+3. If, and only if, that flux is conservative, it can be represented by a scalar
+   potential:
+
+       F = -grad V.
+
+4. The potential-like term must come from the negative log of conservative
+   local exchange support:
+
+       potential-like term = negative log of local exchange support.
+
+This fourth step is conditional. A conservative macroscopic force permits a
+potential V, but the microscopic model must still show that the exchange-history
+weights produce the required -V contribution to the action.
+
+Under those conditions, the statistically dominant path can play a role
+analogous to a stationary-action path:
+
+    most probable path = minimum/effective-stationary S_eff path.
+
+The result is not a derivation of every possible classical field. It is a
+conditional bridge: the statistical kinetic core is field-independent, while
+the force/potential term is supplied by a separate interaction-specific flux
+model.
+
+
+16. What is required and what is optional
+----------------------------------------
+
+Required for the combinatorial action layer:
+
+1. microscopic histories;
+2. macroscopic paths as coarse-grained classes of histories;
+3. probabilities or weights of histories;
+4. definition S_eff = -log Prob(path).
+
+Required for the taxicab physical realization:
+
+1. a finite discrete direction basis;
+2. nonnegative integer counts in each direction;
+3. local one-quantum add/remove events;
+4. no silent replacement;
+5. total count/energy accounting in closed systems;
+6. a physical dictionary from counts to momentum, velocity, and inertial
+   content.
+
+The exact six-direction taxicab basis is not required for the abstract
+combinatorial theorem, but it is useful for physical interpretation because it
+makes direction counting finite, integer-valued, and compatible with ordinary
+three-dimensional Euclidean motion through direction proportions.
+
+External forces are not required for the abstract theorem or for the free
+Hamiltonian-like generator. They enter when one wants the effective action to
+describe physical motion in an environment. In that case the force must be
+given as directional exchange flux. A scalar potential can be introduced only
+for conservative fluxes satisfying F = -grad V.
+
+
+17. What is not derived here
+----------------------------
+
+This note does not derive:
+
+1. the exact numerical coefficient of classical kinetic energy;
+2. the exact textbook Hamilton action for all systems;
+3. quantum phases or the Feynman path integral;
+4. relativistic action;
+5. gauge fields;
+6. the inverse-square gravity-like source flux, which belongs to the separate
+   gravity-bridge model;
+7. the detailed microscopic source of position-dependent exchange bias;
+8. the force/flux rules for all fields;
+9. the local compensation law required for target-independent gravity, which is
+   also part of the gravity-bridge model;
+10. that every physical interaction satisfies the local-slice factorization
+    hypothesis of Section 12.1;
+11. that a specified microscopic gravity, electromagnetic, or other field model
+    satisfies the occupation-support law of Section 12.2.
+
+Items 10 and 11 are now precise model-verification obligations rather than
+missing algebraic steps. Section 12 proves what follows if their explicit
+hypotheses hold. What remains is to derive those hypotheses from the concrete
+add/remove rules of each proposed interaction.
+
+It only derives the structure:
+
+    path probability -> effective action,
+    direction-count imbalance -> momentum/velocity,
+    multiplicity penalty -> kinetic-like quadratic term,
+    free Hamiltonian generator -> H_free = q^2/(2N),
+    exchange flux -> force,
+    local factorization -> time-additive kinetic path cost,
+    potential-support law -> potential term with the required sign,
+    conservative exchange flux -> force from that potential.
+
+
+18. Conclusion
+--------------
+
+The local principle of least-action-like path selection can be interpreted as a
+statistical selection law.
+At the most general level:
+
+    S_eff[path] = -log Prob(path),
+
+so the most probable macroscopic path is the path of least effective action.
+This statement refers to support-maximizing regimes. Classical Hamilton's
+principle is more general: on long intervals it can select stationary saddle
+paths, not only probability maxima.
+
+In a six-direction taxicab exchange model, a particle's motion state is encoded
+by integer counts of primitive momentum directions. Local interactions add or
+remove one quantum; they do not silently replace one direction with another.
+The normalized count imbalance gives velocity, while the imbalance itself gives
+momentum-like content.
+
+At fixed total count, binomial/multinomial counting penalizes directional
+imbalance quadratically. In the simplest balanced one-dimensional pair:
+
+    -log[Omega(v)/Omega(0)] ~= (1/2) N v^2.
+
+If mass is proportional to total count, this has the same form as a kinetic
+term. The same count-velocity relation gives a free Hamiltonian-like generator:
+
+    H_free(q) = q^2/(2N).
+
+External forces are introduced as directional exchange fluxes. If a particular
+interaction supplies a conservative flux:
+
+    F = -grad V,
+
+then that flux can be represented by a potential term and combined with the
+statistical kinetic term in a Lagrangian-like expression. The flux itself is not
+universal; it must be derived separately for each interaction.
+
+Thus a local least-action-like law may emerge from discrete momentum-exchange
+histories:
+
+    action is the statistical cost of a macroscopic path,
+    and, in the local-minimum regime, the classical extremal is the path with
+    the greatest microscopic support.
